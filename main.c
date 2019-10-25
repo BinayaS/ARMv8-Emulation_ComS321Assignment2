@@ -17,4 +17,4 @@ int main(int argc, char const *argv[])
   printf("%s", a);
 
   return 0;
-}
+};
