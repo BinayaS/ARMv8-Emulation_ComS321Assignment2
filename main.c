@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "hashtable.h"
 #include "readFile.h"
 #include "decoderStructure.h"
 
@@ -10,6 +11,6 @@ int main(int argc, char const *argv[])
   printf("%s", a);
 
   readFile(argc, argv);
-  
+
   return 0;
 };
