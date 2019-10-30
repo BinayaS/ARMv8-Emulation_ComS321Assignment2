@@ -1,11 +1,7 @@
 #include <stdio.h>
 ##include "opcodetable.h"
 #include "readFile.h"
-
-struct node {
-  char key[100];
-  int value;
-};
+#include "decoderStructure.h"
 
 int main(int argc, char const *argv[])
 {

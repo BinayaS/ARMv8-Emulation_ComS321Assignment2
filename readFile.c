@@ -14,10 +14,12 @@ void readFile(int argc, char const *argv[]) {
         if(file == 0) {
             printf("file could not be open");
         } else {
+
+            //TODO: read the file and feed it the right files into the decoder
             int x;
 
             while ((x = fgetc( file ) ) != EOF ) {
-              printf( "%c", x );
+              printf("%c", x );
             }
         };
 
