@@ -46,4 +46,5 @@ OpPair opcodeTable[]{
   OpPair{"11111111111", "HALT"} //End 11 bit opcodes
 }
 
+int searchTable(char* opcode);
 #endif // OPCODETABLE_H_

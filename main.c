@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "hashtable.h"
+##include "opcodetable.h"
 #include "readFile.h"
 
 struct node {
