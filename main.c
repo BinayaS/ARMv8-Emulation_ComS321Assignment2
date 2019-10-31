@@ -1,5 +1,6 @@
 #include <stdio.h>
 //#include "hashtable.h"
+//#include "opcodetable.h"
 #include "readFile.h"
 //#include "decoderStructure.h"
 
