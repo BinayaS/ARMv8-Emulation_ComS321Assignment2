@@ -1,0 +1,8 @@
+ADDI X9, X9, #3
+B mainEnd
+ADDI X9, X9, #3
+ADDI X9, X9, #3
+ADDI X9, X9, #3
+mainEnd:
+
+DUMP
