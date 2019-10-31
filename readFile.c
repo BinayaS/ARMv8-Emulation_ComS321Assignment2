@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 #define MAX_BUFFER_SIZE 1000000
 
@@ -45,8 +46,6 @@ void readFile(int argc, char const *argv[]) {
         //91000D29 = 10010001000000000000110100101001
 
         //14000004 = 00010100000000000000000000000100
-
-        free(buffer);
 
     };
 
