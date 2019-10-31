@@ -1,8 +1,5 @@
-ADDI X9, X9, #3
-B mainEnd
-ADDI X9, X9, #3
-ADDI X9, X9, #3
-ADDI X9, X9, #3
-mainEnd:
-
+ADDI X0, X0, #8
+ADDI X1, X1, #16
+STUR X0, [X0, #0]
+STUR X1, [X1, #0]
 DUMP
