@@ -1,29 +1,57 @@
 #include <stdio.h>
+#include <stdint.h>
+
+#define MAX_BUFFER_SIZE 1000000
 
 void readFile(int argc, char const *argv[]) {
     if(argc >= 2) {
 
     printf("The arguments supplied are:\n");
 
-        for(int i = 1; i < argc; i++) {
-            printf("%s\t \n", argv[i]);
-        }
+    for(int i = 1; i < argc; i++) {
+        printf("%s\t \n", argv[i]);
+    }
 
-        FILE *file = fopen(argv[1], "r");
+    FILE *file = fopen(argv[1], "rb");
+    uint8_t buffer[MAX_BUFFER_SIZE];
 
-        if(file == 0) {
-            printf("file could not be open");
-        } else {
+    if(file == 0) {
+        printf("file could not be open");
+    } else {
 
-            //TODO: read the file and feed it the right files into the decoder
-            int x;
+        fseek(file, 0L, SEEK_END);
+        int size = ftell(file);
+        fseek(file, 0L, SEEK_SET);
 
-            while ((x = fgetc( file ) ) != EOF ) {
-              printf("%c", x );
+        fread(buffer, sizeof(buffer), 1, file);
+
+        for(int i = 0; i<size; i++) {
+
+            if(i%4 == 0) {
+                printf("\n%02x",buffer[i]);
+                
+            } else {
+                printf("%02x",buffer[i]);
             }
-        };
 
-        fclose(file);
+        };
+        
+        // while ((x = fgetc( file ) ) != EOF ) {
+        //   printf("%c", x );
+        // };
+
+        //9100 0d29 1400 0004 (binary)
+
+        //91000D29 = 10010001000000000000110100101001
+
+        //14000004 = 00010100000000000000000000000100
+
+        free(buffer);
+
+    };
+
+    fclose(file);
+        
 
     } else {
         printf("No Arguments\n");
