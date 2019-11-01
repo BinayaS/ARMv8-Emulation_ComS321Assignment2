@@ -67,6 +67,7 @@ void display(){
   printf("\n");
 }
 
+/*
 int main() {
   dummyItem = (OpPair*) malloc(sizeof(OpPair));
   dummyItem->opname = "-1";
@@ -87,3 +88,4 @@ int main() {
 
   delete(item);
 }
+*/
