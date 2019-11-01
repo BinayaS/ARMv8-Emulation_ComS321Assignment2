@@ -6,6 +6,7 @@
 int memory[4096]; //4096? //1025
 int stack[512]; //512?? //129
 int reg[32];
+
 //PC is register 16??? 15??
 //SP & FP registers should be initialized to size of stack
 
@@ -37,8 +38,10 @@ void sturB(int *des, int memory[], int *reg, int offset);
 void sturH(int *des, int memory[], int *reg, int offset);
 void sturW(int *des, int memory[], int *reg, int offset);
 void lsl(int *des, int *reg1, int offset);
+void lsr(int *des, int *reg1, int offset);
 void umulh(int *des, int *reg1, int *reg2); //???????
-void dump(FILE *f, int8_t *start, size_t size);
+void hexdump(FILE *f, int8_t *start, size_t size);
+void dump(FILE *f);
 char printable_char(uint8_t c);
 
 int main()
@@ -46,19 +49,21 @@ int main()
 
   for(int i = 0; i < 32; i ++)
   {
-    reg[i] = 4;
+    reg[i] = 0;
   }
 
   memory[0] = 10;
   memory[1] = 12;
   memory[2] = 46;
+  reg[28] = 512;
+  reg[29] = 512;
 
   FILE *read;
   read = fopen("test.txt", "r");
   //stur(&reg[0], memory[], &reg[1], 24);
   //smulh(&reg[1], &reg[2], &reg[3]);
-  dump(read, &memory[0], 4096);
-  dump(read, &stack[0], 129);
+  //dump(read, &memory[0], 4096);
+  dump(read);
   return 0;
 }
 
@@ -178,7 +183,7 @@ char printable_char(uint8_t c)
   return isprint(c) ? c : '.';
 }
 
-void dump(FILE *f, int8_t *start, size_t size) //displays contents of registers, memory, and disassembled program
+void hexdump(FILE *f, int8_t *start, size_t size) //displays contents of registers, memory, and disassembled program
 {
   size_t i;
 
@@ -224,6 +229,53 @@ void dump(FILE *f, int8_t *start, size_t size) //displays contents of registers,
   }
   //fprintf(f, "%08x\n", (int32_t) size);
   printf("%08x\n", (int32_t) size);
+}
+
+void dump(FILE *f)
+{
+    printf("%s\n", "Registers: ");
+    for(int i = 0; i < 32; i ++)
+    {
+
+
+        if(i == 16)
+        {
+            printf("(IPO)  X%d: %d\n", i, reg[i]);
+
+        } else if(i == 17)
+        {
+            printf("(IP1)  X%d: %d\n", i, reg[i]);
+
+        } else if(i == 28)
+        {
+            printf(" (SP)  X%d: %d\n", i, reg[i]);
+        } else if(i == 29)
+        {
+            printf(" (FP)  X%d: %d\n", i, reg[i]);
+        } else if(i == 30)
+        {
+            printf(" (LR)  X%d: %d\n", i, reg[i]);
+        } else if(i == 31)
+        {
+            printf("(XZR)  X%d: %d\n", i, reg[i]);
+        }
+        else if(i < 10)
+        {
+            printf("       X%d:  %d\n", i, reg[i]);
+        } else
+        {
+            printf("       X%d: %d\n", i, reg[i]);
+        }
+    }
+    prnl();
+    prnl();
+    //SP & FP - initialized to the size of the stack
+    printf("%s\n", "Stack: ");
+    hexdump(f, &stack[0], 512);
+    prnl();
+    prnl();
+    printf("%s\n", "Main Memory: ");
+    hexdump(f, &memory[0], 4096);
 }
 
 void eor(int *des, int *reg1, int *reg2)
@@ -277,6 +329,11 @@ void lsl(int *des, int *reg1, int offset)
   // does the offset need to be divded by 8??
   //int val = offset / 8;
   *des = *reg1 << offset;
+}
+
+void lsr(int *des, int *reg1, int offset)
+{
+    *des = *reg1 >> offset;
 }
 
 void mul(int *des, int *reg1, int *reg2)
