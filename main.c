@@ -55,7 +55,21 @@ int main(int argc, char const *argv[])
   }
   
   //TODO compare opcode by taking the instruction and shifting right till you have just the beggining and compare it to 
-  
+  for(int i = 0; i < counter; i++) {
+    unsigned int a = instructionArray[i];
+    int shift10 = 32-10;
+    int shift11 = 32-11;
+    int ADDI = 580;
+    int STUR = 1984;
+    printf("shift10 decimal: %d , shift11 decimal: %d ", a>>shift10, a>>shift11);
+    
+    if(STUR == a>>shift11) {
+      printf("hex: %x ", a);
+      printf("MATCH!\n");
+    }  else {
+      printf("hex: %x\n", a);
+    }
+  }
 
   return 0;
 };
