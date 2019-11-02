@@ -28,7 +28,7 @@ void eor(int *des, int *reg1, int *reg2);
 void mul(int *des, int *reg1, int *reg2);
 void orr(int *des, int *reg1, int *reg2);
 void orrI(int *des, int *reg1, int val);
-//void smulh(long long *des, long long *reg1, long long *reg2) //????
+void smulh(int *des, int *reg1, int *reg2); //????
 void ldur(int *des, int *reg1, int memory[], int offset);
 void ldurB(int *des, int *reg1, int memory[], int offset);
 void ldurH(int *des, int *reg1, int memory[], int offset);
