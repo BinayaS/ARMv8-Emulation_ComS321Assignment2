@@ -1,4 +1,4 @@
-JSB#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "opcodetable.h"
 #include "readFile.h"
@@ -11,15 +11,15 @@ OpPair opcodeTable[] = {
    {180, "CBZ", 'C'},
    {181, "CBNZ", 'C'}, //End 8 bit opcodes
    {580, "ADDI", 'I'},
-   {584, "ANDI",  'I'},
-   {712, "ORRI",  'I'},
-   {836, "SUBI",  'I'},
-   {840, "EORI",  'I'},
-   {964, "SUBIS",  'I'}, //End of 10 bit opcodes
+   {584, "ANDI", 'I'},
+   {712, "ORRI", 'I'},
+   {836, "SUBI", 'I'},
+   {840, "EORI", 'I'},
+   {964, "SUBIS", 'I'}, //End of 10 bit opcodes
    {448, "STURB", 'D'},
-   {450, "LDURB",  'D'},
-   {960, "STURH",  'D'},
-   {962, "LDURH",  'D'},
+   {450, "LDURB", 'D'},
+   {960, "STURH", 'D'},
+   {962, "LDURH", 'D'},
    {1104, "AND", 'R'},
    {1112, "ADD", 'R'},
    {1238, "SDIV", 'R'},
@@ -28,16 +28,16 @@ OpPair opcodeTable[] = {
    {1242, "SMULH", 'R'},
    {1246, "UMULH", 'R'},
    {1360, "ORR", 'R'},
-   {1472, "STURW",  'D'},
-   {1476, "LDURSW",  'D'},
+   {1472, "STURW", 'D'},
+   {1476, "LDURSW", 'D'},
    {1690, "LSR", 'R'},
    {1691, "LSL", 'R'},
    {1712, "BR", 'R'},
    {1616, "EOR", 'R'},
    {1624, "SUB", 'R'},
    {1880, "SUBS", 'R'},
-   {1984, "STUR",  'D'},
-   {1986, "LDUR",  'D'},
+   {1984, "STUR", 'D'},
+   {1986, "LDUR", 'D'},
    {2044, "PRNL", 'J'},
    {2045, "PRNT", 'J'},
    {2046, "DUMP", 'J'},

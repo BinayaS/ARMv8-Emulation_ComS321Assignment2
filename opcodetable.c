@@ -4,7 +4,7 @@
 
 int searchTable(int opcode, OpPair *opcodeTable){
   int i;
-  for(i = 0; i < 37; i++){
+  for(i = 0; i < 36; i++){
     if(opcodeTable[i].opcode == opcode){
       return i;
     }
