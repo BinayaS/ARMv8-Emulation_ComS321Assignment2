@@ -62,20 +62,6 @@ void decode(unsigned int a) {
     //printf("%d\n", a>>shift);
 
     //search for opcode
-    // switch(a>>shift) {
-    //   //ADDI
-    //   case (int)580 :
-    //     printf("shiftAmount: %d -- %d -- ADDI\n", shiftAmount, a>>shift);
-    //     foundOpcode = 1;
-    //   break;
-    //
-    //   //STUR
-    //   case (int)1984 :
-    //     printf("shiftAmount: %d -- %d -- STUR\n", shiftAmount, a>>shift);
-    //     foundOpcode = 1;
-    //   break;
-    // }
-
     opcodeIndex = searchTable(a>>shift, opcodeTable);
     if(opcodeIndex >= 0){
       printf("shiftAmount: %d -- %d -- %s\n",
