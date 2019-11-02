@@ -4,44 +4,54 @@
 #include "readFile.h"
 //#include "decoderStructure.h"
 
+/*
+1 = B
+2 = R
+3 = I
+4 = D
+5 = CB
+6 = IW
+7 = JS
+*/
+
 OpPair opcodeTable[] = {
-   {5, "B", 'B'},
-   {37, "BL", 'B'}, //End 6 bit opcodes
-   {84, "B.cond", 'C'},
-   {180, "CBZ", 'C'},
-   {181, "CBNZ", 'C'}, //End 8 bit opcodes
-   {580, "ADDI", 'I'},
-   {584, "ANDI", 'I'},
-   {712, "ORRI", 'I'},
-   {836, "SUBI", 'I'},
-   {840, "EORI", 'I'},
-   {964, "SUBIS", 'I'}, //End of 10 bit opcodes
-   {448, "STURB", 'D'},
-   {450, "LDURB", 'D'},
-   {960, "STURH", 'D'},
-   {962, "LDURH", 'D'},
-   {1104, "AND", 'R'},
-   {1112, "ADD", 'R'},
-   {1238, "SDIV", 'R'},
-   {1238, "UDIV", 'R'}, //Fo'R' now, all division is unsigned, be careful
-   {1240, "MUL", 'R'},
-   {1242, "SMULH", 'R'},
-   {1246, "UMULH", 'R'},
-   {1360, "ORR", 'R'},
-   {1472, "STURW", 'D'},
-   {1476, "LDURSW", 'D'},
-   {1690, "LSR", 'R'},
-   {1691, "LSL", 'R'},
-   {1712, "BR", 'R'},
-   {1616, "EOR", 'R'},
-   {1624, "SUB", 'R'},
-   {1880, "SUBS", 'R'},
-   {1984, "STUR", 'D'},
-   {1986, "LDUR", 'D'},
-   {2044, "PRNL", 'J'},
-   {2045, "PRNT", 'J'},
-   {2046, "DUMP", 'J'},
-   {2047, "HALT", 'J'} //End 11 bit opcodes
+   {5, "B", 1},
+   {37, "BL", 1}, //End 6 bit opcodes
+   {84, "B.cond", 5},
+   {180, "CBZ", 5},
+   {181, "CBNZ", 5}, //End 8 bit opcodes
+   {580, "ADDI", 3},
+   {584, "ANDI", 3},
+   {712, "ORRI", 3},
+   {836, "SUBI", 3},
+   {840, "EORI", 3},
+   {964, "SUBIS", 3}, //End of 10 bit opcodes
+   {448, "STURB", 4},
+   {450, "LDURB", 4},
+   {960, "STURH", 4},
+   {962, "LDURH", 4},
+   {1104, "AND", 2},
+   {1112, "ADD", 2},
+   {1238, "SDIV", 2},
+   {1238, "UDIV", 2}, //Fo2 now, all division is unsigned, be careful
+   {1240, "MUL", 2},
+   {1242, "SMULH", 2},
+   {1246, "UMULH", 2},
+   {1360, "ORR", 2},
+   {1472, "STURW", 4},
+   {1476, "LDURSW", 4},
+   {1690, "LSR", 2},
+   {1691, "LSL", 2},
+   {1712, "BR", 2},
+   {1616, "EOR", 2},
+   {1624, "SUB", 2},
+   {1880, "SUBS", 2},
+   {1984, "STUR", 4},
+   {1986, "LDUR", 4},
+   {2044, "PRNL", 7},
+   {2045, "PRNT", 7},
+   {2046, "DUMP", 7},
+   {2047, "HALT", 7} //End 11 bit opcodes
 };
 
 #define MAX_INSTRUCTION_SIZE 10000000
@@ -69,31 +79,31 @@ void decode(unsigned int a) {
     }
 
     switch(opcodeTable[opcodeIndex].opformat) {
-      case  'I':
-        printf("I");
-      break;
-
-      case 'R':
-        printf("R");
-      break;
-
-      case  'D':
-        printf("D");
-      break;
-
-      case 'B':
+      case 1:
         printf("B");
       break;
 
-      case 'C':
+      case 2:
+        printf("R");
+      break;
+
+      case  3:
+        printf("I");
+      break;
+
+      case  4:
+        printf("D");
+      break;
+
+      case 5:
         printf("CB");
       break;
 
-      case 'W':
+      case 6:
         printf("IW");
       break;
 
-      case 'J':
+      case 7:
         printf("JS");
       break;
 
