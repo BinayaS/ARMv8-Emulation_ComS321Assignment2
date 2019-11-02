@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+//#include "hashtable.h"
 #include "opcodetable.h"
+//#include "opcodetable.c"
 #include "readFile.h"
 //#include "decoderStructure.h"
 
@@ -15,6 +17,7 @@
 */
 
 OpPair opcodeTable[] = {
+<<<<<<< HEAD
    {5, "B", 1},
    {37, "BL", 1}, //End 6 bit opcodes
    {84, "B.cond", 5},
@@ -52,9 +55,48 @@ OpPair opcodeTable[] = {
    {2045, "PRNT", 7},
    {2046, "DUMP", 7},
    {2047, "HALT", 7} //End 11 bit opcodes
+=======
+   {5, "B"},
+   {37, "BL"}, //End 6 bit opcodes
+   {84, "B.cond"},
+   {180, "CBZ"},
+   {181, "CBNZ"}, //End 8 bit opcodes
+   {580, "ADDI"},
+   {584, "ANDI"},
+   {712, "ORRI"},
+   {836, "SUBI"},
+   {840, "EORI"},
+   {964, "SUBIS"}, //End of 10 bit opcodes
+   {448, "STURB"},
+   {450, "LDURB"},
+   {960, "STURH"},
+   {962, "LDURH"},
+   {1104, "AND"},
+   {1112, "ADD"},
+   {1238, "SDIV"},
+   {1238, "UDIV"}, //For now, all division is unsigned, be careful
+   {1240, "MUL"},
+   {1242, "SMULH"},
+   {1246, "UMULH"},
+   {1360, "ORR"},
+   {1472, "STURW"},
+   {1476, "LDURSW"},
+   {1690, "LSR"},
+   {1691, "LSL"},
+   {1712, "BR"},
+   {1616, "EOR"},
+   {1624, "SUB"},
+   {1880, "SUBS"},
+   {1984, "STUR"},
+   {1986, "LDUR"},
+   {2044, "PRNL"},
+   {2045, "PRNT"},
+   {2046, "DUMP"},
+   {2047, "HALT"} //End 11 bit opcodes
+>>>>>>> parent of 12da59a... add opformat to oppair
 };
 
-#define MAX_INSTRUCTION_SIZE 10000000
+#define MAX_INSTRUCTION_SIZE 1000000
 
 void decode(unsigned int a) {
 
