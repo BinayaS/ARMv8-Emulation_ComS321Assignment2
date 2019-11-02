@@ -4,6 +4,16 @@
 #include "readFile.h"
 //#include "decoderStructure.h"
 
+enum opFormat {
+  I,
+  R,
+  B,
+  D,
+  CB,
+  IW,
+  JS
+};
+
 OpPair opcodeTable[] = {
    {5, "B", "B"},
    {37, "BL", "B"}, //End 6 bit opcodes
@@ -66,6 +76,40 @@ void decode(unsigned int a) {
               shiftAmount, a>>shift, opcodeTable[opcodeIndex].opname);
       foundOpcode = 1;
       breakout = 1;
+    }
+    
+    switch(opcodeTable[opcodeIndex].opformat) {
+      case "I":
+        printf("I");
+      break;
+      
+      case "R":
+        printf("R");
+      break;
+      
+      case "D":
+        printf("D");
+      break;
+      
+      case "B":
+        printf("B");
+      break;
+      
+      case "CB":
+        printf("CB");
+      break;
+      
+      case "IW":
+        printf("IW");
+      break;
+      
+      case "JS":
+        printf("JS");
+      break;
+      
+      default:
+        printf("Didn't find opFormat");
+      break;
     }
 
     //update shiftAmount
