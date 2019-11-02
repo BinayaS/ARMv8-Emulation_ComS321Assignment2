@@ -1,52 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "hashtable.h"
 #include "opcodetable.h"
-//#include "opcodetable.c"
 #include "readFile.h"
 //#include "decoderStructure.h"
 
 OpPair opcodeTable[] = {
-   {5, "B"},
-   {37, "BL"}, //End 6 bit opcodes
-   {84, "B.cond"},
-   {180, "CBZ"},
-   {181, "CBNZ"}, //End 8 bit opcodes
-   {580, "ADDI"},
-   {584, "ANDI"},
-   {712, "ORRI"},
-   {836, "SUBI"},
-   {840, "EORI"},
-   {964, "SUBIS"}, //End of 10 bit opcodes
-   {448, "STURB"},
-   {450, "LDURB"},
-   {960, "STURH"},
-   {962, "LDURH"},
-   {1104, "AND"},
-   {1112, "ADD"},
-   {1238, "SDIV"},
-   {1238, "UDIV"}, //For now, all division is unsigned, be careful
-   {1240, "MUL"},
-   {1242, "SMULH"},
-   {1246, "UMULH"},
-   {1360, "ORR"},
-   {1472, "STURW"},
-   {1476, "LDURSW"},
-   {1690, "LSR"},
-   {1691, "LSL"},
-   {1712, "BR"},
-   {1616, "EOR"},
-   {1624, "SUB"},
-   {1880, "SUBS"},
-   {1984, "STUR"},
-   {1986, "LDUR"},
-   {2044, "PRNL"},
-   {2045, "PRNT"},
-   {2046, "DUMP"},
-   {2047, "HALT"} //End 11 bit opcodes
+   {5, "B", "B"},
+   {37, "BL", "B"}, //End 6 bit opcodes
+   {84, "B.cond", "CB"},
+   {180, "CBZ", "CB"},
+   {181, "CBNZ", "CB"}, //End 8 bit opcodes
+   {580, "ADDI", "I"},
+   {584, "ANDI", "I"},
+   {712, "ORRI", "I"},
+   {836, "SUBI", "I"},
+   {840, "EORI", "I"},
+   {964, "SUBIS", "I"}, //End of 10 bit opcodes
+   {448, "STURB", "D"},
+   {450, "LDURB", "D"},
+   {960, "STURH", "D"},
+   {962, "LDURH", "D"},
+   {1104, "AND", "R"},
+   {1112, "ADD", "R"},
+   {1238, "SDIV", "R"},
+   {1238, "UDIV", "R"}, //For now, all division is unsigned, be careful
+   {1240, "MUL", "R"},
+   {1242, "SMULH", "R"},
+   {1246, "UMULH", "R"},
+   {1360, "ORR", "R"},
+   {1472, "STURW", "D"},
+   {1476, "LDURSW", "D"},
+   {1690, "LSR", "R"},
+   {1691, "LSL", "R"},
+   {1712, "BR", "R"},
+   {1616, "EOR", "R"},
+   {1624, "SUB", "R"},
+   {1880, "SUBS", "R"},
+   {1984, "STUR", "D"},
+   {1986, "LDUR", "D"},
+   {2044, "PRNL", "JS"},
+   {2045, "PRNT", "JS"},
+   {2046, "DUMP", "JS"},
+   {2047, "HALT", "JS"} //End 11 bit opcodes
 };
 
-#define MAX_INSTRUCTION_SIZE 1000000
+#define MAX_INSTRUCTION_SIZE 10000000
 
 void decode(unsigned int a) {
 
