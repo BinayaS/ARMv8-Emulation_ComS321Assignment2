@@ -7,6 +7,71 @@
 
 #define MAX_INSTRUCTION_SIZE 1000000
 
+void decode(unsigned int a) {
+
+  int shiftAmount = 11;
+  int shift = 32 - shiftAmount;
+  int breakout = 0;
+  int foundOpcode = 0;
+  
+  //TODO compare and find the opcode that is given in a
+  while(shiftAmount > 0) {
+  
+    //printf("%d\n", a>>shift);
+  
+    //search for opcode
+    switch(a>>shift) {
+      //ADDI
+      case (int)580 :
+        printf("shiftAmount: %d -- %d -- ADDI\n", shiftAmount, a>>shift);
+        foundOpcode = 1;
+      break;
+      
+      //STUR
+      case (int)1984 :
+        printf("shiftAmount: %d -- %d -- STUR\n", shiftAmount, a>>shift);
+        foundOpcode = 1;
+      break;
+    }
+    
+    //update shiftAmount
+    switch(shiftAmount) {
+      case 11:
+        shiftAmount = 10;
+      break;
+      
+      case 10:
+        shiftAmount = 9;
+      break;
+      
+      case 9:
+        shiftAmount = 8;
+      break;
+      
+      case 8:
+        shiftAmount = 6;
+      break;
+      
+      case 6:
+        shiftAmount = -1;
+      break;
+    }
+    
+    //exit while loop
+    if(breakout == 1) {
+      break;
+    }
+    
+    //update shift
+    shift = 32 - shiftAmount;
+  }
+  
+  if(foundOpcode == 0) {
+    printf("Failed to find opcode\n");
+  }
+  
+}
+
 int main(int argc, char const *argv[])
 {
 
@@ -54,14 +119,19 @@ int main(int argc, char const *argv[])
     printf("%x\n", instructionArray[i]);
   }
   
-  //TODO compare opcode by taking the instruction and shifting right till you have just the beggining and compare it to 
+  //TODO compare opcode by taking the instruction and shifting right till you have just the beggining and compare it to the decimal version of the op code
   for(int i = 0; i < counter; i++) {
     unsigned int a = instructionArray[i];
+    
+    decode(a);
+    
+    /*
     int shift10 = 32-10;
     int shift11 = 32-11;
     int ADDI = 580;
     int STUR = 1984;
-    printf("shift10 decimal: %d , shift11 decimal: %d ", a>>shift10, a>>shift11);
+    printf("shift10 decimal: %d -- shift11 decimal: %d -- ", a>>shift10, a>>shift11);
+    
     
     if(STUR == a>>shift11) {
       printf("hex: %x ", a);
@@ -69,7 +139,10 @@ int main(int argc, char const *argv[])
     }  else {
       printf("hex: %x\n", a);
     }
+    */
   }
+  
+  
 
   return 0;
 };
