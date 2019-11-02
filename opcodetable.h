@@ -4,7 +4,7 @@
 typedef struct OpPair {
   int opcode;
   char opname[7];
-  char opformat[3];
+  char opformat;
 } OpPair;
 
 int searchTable(int opcode, OpPair* opcodeTable);

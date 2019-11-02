@@ -1,57 +1,47 @@
-#include <stdio.h>
+JSB#include <stdio.h>
 #include <stdlib.h>
 #include "opcodetable.h"
 #include "readFile.h"
 //#include "decoderStructure.h"
 
-enum opFormat {
-  I,
-  R,
-  B,
-  D,
-  CB,
-  IW,
-  JS
-};
-
 OpPair opcodeTable[] = {
-   {5, "B", "B"},
-   {37, "BL", "B"}, //End 6 bit opcodes
-   {84, "B.cond", "CB"},
-   {180, "CBZ", "CB"},
-   {181, "CBNZ", "CB"}, //End 8 bit opcodes
-   {580, "ADDI", "I"},
-   {584, "ANDI", "I"},
-   {712, "ORRI", "I"},
-   {836, "SUBI", "I"},
-   {840, "EORI", "I"},
-   {964, "SUBIS", "I"}, //End of 10 bit opcodes
-   {448, "STURB", "D"},
-   {450, "LDURB", "D"},
-   {960, "STURH", "D"},
-   {962, "LDURH", "D"},
-   {1104, "AND", "R"},
-   {1112, "ADD", "R"},
-   {1238, "SDIV", "R"},
-   {1238, "UDIV", "R"}, //For now, all division is unsigned, be careful
-   {1240, "MUL", "R"},
-   {1242, "SMULH", "R"},
-   {1246, "UMULH", "R"},
-   {1360, "ORR", "R"},
-   {1472, "STURW", "D"},
-   {1476, "LDURSW", "D"},
-   {1690, "LSR", "R"},
-   {1691, "LSL", "R"},
-   {1712, "BR", "R"},
-   {1616, "EOR", "R"},
-   {1624, "SUB", "R"},
-   {1880, "SUBS", "R"},
-   {1984, "STUR", "D"},
-   {1986, "LDUR", "D"},
-   {2044, "PRNL", "JS"},
-   {2045, "PRNT", "JS"},
-   {2046, "DUMP", "JS"},
-   {2047, "HALT", "JS"} //End 11 bit opcodes
+   {5, "B", 'B'},
+   {37, "BL", 'B'}, //End 6 bit opcodes
+   {84, "B.cond", 'C'},
+   {180, "CBZ", 'C'},
+   {181, "CBNZ", 'C'}, //End 8 bit opcodes
+   {580, "ADDI", 'I'},
+   {584, "ANDI",  'I'},
+   {712, "ORRI",  'I'},
+   {836, "SUBI",  'I'},
+   {840, "EORI",  'I'},
+   {964, "SUBIS",  'I'}, //End of 10 bit opcodes
+   {448, "STURB", 'D'},
+   {450, "LDURB",  'D'},
+   {960, "STURH",  'D'},
+   {962, "LDURH",  'D'},
+   {1104, "AND", 'R'},
+   {1112, "ADD", 'R'},
+   {1238, "SDIV", 'R'},
+   {1238, "UDIV", 'R'}, //Fo'R' now, all division is unsigned, be careful
+   {1240, "MUL", 'R'},
+   {1242, "SMULH", 'R'},
+   {1246, "UMULH", 'R'},
+   {1360, "ORR", 'R'},
+   {1472, "STURW",  'D'},
+   {1476, "LDURSW",  'D'},
+   {1690, "LSR", 'R'},
+   {1691, "LSL", 'R'},
+   {1712, "BR", 'R'},
+   {1616, "EOR", 'R'},
+   {1624, "SUB", 'R'},
+   {1880, "SUBS", 'R'},
+   {1984, "STUR",  'D'},
+   {1986, "LDUR",  'D'},
+   {2044, "PRNL", 'J'},
+   {2045, "PRNT", 'J'},
+   {2046, "DUMP", 'J'},
+   {2047, "HALT", 'J'} //End 11 bit opcodes
 };
 
 #define MAX_INSTRUCTION_SIZE 10000000
@@ -77,36 +67,36 @@ void decode(unsigned int a) {
       foundOpcode = 1;
       breakout = 1;
     }
-    
+
     switch(opcodeTable[opcodeIndex].opformat) {
-      case "I":
+      case  'I':
         printf("I");
       break;
-      
-      case "R":
+
+      case 'R':
         printf("R");
       break;
-      
-      case "D":
+
+      case  'D':
         printf("D");
       break;
-      
-      case "B":
+
+      case 'B':
         printf("B");
       break;
-      
-      case "CB":
+
+      case 'C':
         printf("CB");
       break;
-      
-      case "IW":
+
+      case 'W':
         printf("IW");
       break;
-      
-      case "JS":
+
+      case 'J':
         printf("JS");
       break;
-      
+
       default:
         printf("Didn't find opFormat");
       break;
