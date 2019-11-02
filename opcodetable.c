@@ -3,10 +3,10 @@
 #include "opcode.h"
 
 
-int searchTable(char* opcode){
+int searchTable(int opcode){
   int i;
   for(i == 0; i < 37; i++){
-    if(strcmp(opcodeTable[i].opcode, opcode)){
+    if(opcodeTable[i].opcode == opcode){
       return i;
     }
   }

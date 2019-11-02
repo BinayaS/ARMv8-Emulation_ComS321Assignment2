@@ -2,49 +2,49 @@
 #define OPCODETABLE_H_
 
 typedef struct OpPair {
-  char opcode[12];
+  int opcode;
   char opname[7];
 } OpPair;
 
 OpPair opcodeTable[]{
-  OpPair{"000101", "B"},
-  OpPair{"100101", "BL"}, //End 6 bit opcodes
-  OpPair{"01010100", "B.cond"},
-  OpPair{"10110100", "CBZ"},
-  OpPair{"10110101", "CBNZ"}, //End 8 bit opcodes
-  OpPair{"1001000100", "ADDI"},
-  OpPair{"1001001000", "ANDI"},
-  OpPair{"1011001000", "ORRI"},
-  OpPair{"1101000100", "SUBI"},
-  OpPair{"1101001000", "EORI"},
-  OpPair{"1111000100", "SUBIS"}, //End of 10 bit opcodes
-  OpPair{"00111000000", "STURB"},
-  OpPair{"00111000010", "LDURB"},
-  OpPair{"01111000000", "STURH"},
-  OpPair{"01111000010", "LDURH"},
-  OpPair{"10001010000", "AND"},
-  OpPair{"10001011000", "ADD"},
-  OpPair{"10011010110", "SDIV"},
-  OpPair{"10011010110", "UDIV"},
-  OpPair{"10011011000", "MUL"},
-  OpPair{"10011011010", "SMULH"},
-  OpPair{"10011011110", "UMULH"},
-  OpPair{"10101010000", "ORR"},
-  OpPair{"10111000000", "STURW"},
-  OpPair{"10111000100", "LDURSW"},
-  OpPair{"11010011010", "LSR"},
-  OpPair{"11010011011", "LSL"},
-  OpPair{"11010110000", "BR"},
-  OpPair{"11001010000", "EOR"},
-  OpPair{"11001011000", "SUB"},
-  OpPair{"11101011000", "SUBS"},
-  OpPair{"11111000000", "STUR"},
-  OpPair{"11111000010", "LDUR"},
-  OpPair{"11111111100", "PRNL"},
-  OpPair{"11111111101", "PRNT"},
-  OpPair{"11111111110", "DUMP"},
-  OpPair{"11111111111", "HALT"} //End 11 bit opcodes
+  OpPair{5, "B"},
+  OpPair{37, "BL"}, //End 6 bit opcodes
+  OpPair{84, "B.cond"},
+  OpPair{180, "CBZ"},
+  OpPair{181, "CBNZ"}, //End 8 bit opcodes
+  OpPair{580, "ADDI"},
+  OpPair{584, "ANDI"},
+  OpPair{712, "ORRI"},
+  OpPair{836, "SUBI"},
+  OpPair{840, "EORI"},
+  OpPair{964, "SUBIS"}, //End of 10 bit opcodes
+  OpPair{448, "STURB"},
+  OpPair{450, "LDURB"},
+  OpPair{960, "STURH"},
+  OpPair{962, "LDURH"},
+  OpPair{1104, "AND"},
+  OpPair{1112, "ADD"},
+  OpPair{1238, "SDIV"},
+  OpPair{1238, "UDIV"}, //For now, all division is unsigned, be careful
+  OpPair{1240, "MUL"},
+  OpPair{1242, "SMULH"},
+  OpPair{1246, "UMULH"},
+  OpPair{1360, "ORR"},
+  OpPair{1472, "STURW"},
+  OpPair{1476, "LDURSW"},
+  OpPair{1690, "LSR"},
+  OpPair{1691, "LSL"},
+  OpPair{1712, "BR"},
+  OpPair{1616, "EOR"},
+  OpPair{1624, "SUB"},
+  OpPair{1880, "SUBS"},
+  OpPair{1984, "STUR"},
+  OpPair{1986, "LDUR"},
+  OpPair{2044, "PRNL"},
+  OpPair{2045, "PRNT"},
+  OpPair{2046, "DUMP"},
+  OpPair{2047, "HALT"} //End 11 bit opcodes
 }
 
-int searchTable(char* opcode);
+int searchTable(int opcode);
 #endif // OPCODETABLE_H_
