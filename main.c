@@ -17,83 +17,43 @@
 */
 
 OpPair opcodeTable[] = {
-<<<<<<< HEAD
-   {5, "B", 1},
-   {37, "BL", 1}, //End 6 bit opcodes
-   {84, "B.cond", 5},
-   {180, "CBZ", 5},
-   {181, "CBNZ", 5}, //End 8 bit opcodes
-   {580, "ADDI", 3},
-   {584, "ANDI", 3},
-   {712, "ORRI", 3},
-   {836, "SUBI", 3},
-   {840, "EORI", 3},
-   {964, "SUBIS", 3}, //End of 10 bit opcodes
-   {448, "STURB", 4},
-   {450, "LDURB", 4},
-   {960, "STURH", 4},
-   {962, "LDURH", 4},
-   {1104, "AND", 2},
-   {1112, "ADD", 2},
-   {1238, "SDIV", 2},
-   {1238, "UDIV", 2}, //Fo2 now, all division is unsigned, be careful
-   {1240, "MUL", 2},
-   {1242, "SMULH", 2},
-   {1246, "UMULH", 2},
-   {1360, "ORR", 2},
-   {1472, "STURW", 4},
-   {1476, "LDURSW", 4},
-   {1690, "LSR", 2},
-   {1691, "LSL", 2},
-   {1712, "BR", 2},
-   {1616, "EOR", 2},
-   {1624, "SUB", 2},
-   {1880, "SUBS", 2},
-   {1984, "STUR", 4},
-   {1986, "LDUR", 4},
-   {2044, "PRNL", 7},
-   {2045, "PRNT", 7},
-   {2046, "DUMP", 7},
-   {2047, "HALT", 7} //End 11 bit opcodes
-=======
-   {5, "B"},
-   {37, "BL"}, //End 6 bit opcodes
-   {84, "B.cond"},
-   {180, "CBZ"},
-   {181, "CBNZ"}, //End 8 bit opcodes
-   {580, "ADDI"},
-   {584, "ANDI"},
-   {712, "ORRI"},
-   {836, "SUBI"},
-   {840, "EORI"},
-   {964, "SUBIS"}, //End of 10 bit opcodes
-   {448, "STURB"},
-   {450, "LDURB"},
-   {960, "STURH"},
-   {962, "LDURH"},
-   {1104, "AND"},
-   {1112, "ADD"},
-   {1238, "SDIV"},
-   {1238, "UDIV"}, //For now, all division is unsigned, be careful
-   {1240, "MUL"},
-   {1242, "SMULH"},
-   {1246, "UMULH"},
-   {1360, "ORR"},
-   {1472, "STURW"},
-   {1476, "LDURSW"},
-   {1690, "LSR"},
-   {1691, "LSL"},
-   {1712, "BR"},
-   {1616, "EOR"},
-   {1624, "SUB"},
-   {1880, "SUBS"},
-   {1984, "STUR"},
-   {1986, "LDUR"},
-   {2044, "PRNL"},
-   {2045, "PRNT"},
-   {2046, "DUMP"},
-   {2047, "HALT"} //End 11 bit opcodes
->>>>>>> parent of 12da59a... add opformat to oppair
+   {5, "B", B},
+   {37, "BL", B}, //End 6 bit opcodes
+   {84, "B.cond", CB},
+   {180, "CBZ", CB},
+   {181, "CBNZ", CB}, //End 8 bit opcodes
+   {580, "ADDI", I},
+   {584, "ANDI", I},
+   {712, "ORRI", I},
+   {836, "SUBI", I},
+   {840, "EORI", I},
+   {964, "SUBIS", I}, //End of 10 bit opcodes
+   {448, "STURB", D},
+   {450, "LDURB", D},
+   {960, "STURH", D},
+   {962, "LDURH", D},
+   {1104, "AND", R},
+   {1112, "ADD", R},
+   {1238, "SDIV", R},
+   {1238, "UDIV", R}, //For now, all division is unsigned, be careful
+   {1240, "MUL", R},
+   {1242, "SMULH", R},
+   {1246, "UMULH", R},
+   {1360, "ORR", R},
+   {1472, "STURW", D},
+   {1476, "LDURSW", D},
+   {1690, "LSR", R},
+   {1691, "LSL", R},
+   {1712, "BR", R},
+   {1616, "EOR", R},
+   {1624, "SUB", R},
+   {1880, "SUBS", R},
+   {1984, "STUR", D},
+   {1986, "LDUR", D},
+   {2044, "PRNL", JS},
+   {2045, "PRNT", JS},
+   {2046, "DUMP", JS},
+   {2047, "HALT", JS} //End 11 bit opcodes
 };
 
 #define MAX_INSTRUCTION_SIZE 1000000
@@ -114,8 +74,39 @@ void decode(unsigned int a) {
     //search for opcode
     opcodeIndex = searchTable(a>>shift, opcodeTable);
     if(opcodeIndex >= 0){
-      printf("shiftAmount: %d -- %d -- %s\n",
+      printf("shiftAmount: %d -- %d -- %s",
               shiftAmount, a>>shift, opcodeTable[opcodeIndex].opname);
+      switch(opcodeTable[opcodeIndex].opformat) {
+	case R:
+	  printf(" -- R\n");
+	break;
+
+	case I:
+	  printf(" -- I");
+	  printf(" -> %d\n", a>>5 & 0x1F);
+	break;
+
+	case D:
+	  printf(" -- D\n");
+	break;
+
+	case B:
+	  printf(" -- B\n");
+	break;
+
+	case CB:
+	  printf(" -- CB\n");
+	break;
+
+	case IW:
+	  printf(" -- IW\n");
+	break;
+
+	case JS:
+	  printf(" -- JS\n");
+	break;
+      }
+
       foundOpcode = 1;
       breakout = 1;
     }
@@ -187,7 +178,7 @@ void decode(unsigned int a) {
   }
 
   if(foundOpcode == 0) {
-    printf("Failed to find opcode\n");
+    printf("Failed to find opcode -->  %x\n", a);
   }
 
 }
