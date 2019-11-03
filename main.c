@@ -56,6 +56,14 @@ OpPair opcodeTable[] = {
    {2047, "HALT", JS} //End 11 bit opcodes
 };
 
+unsigned int rm = 0;
+unsigned int rn = 0;
+unsigned int rd = 0;
+unsigned int imm = 0;
+unsigned int dtaddr = 0;
+unsigned int braddr = 0;
+unsigned int condbraddr = 0;
+
 #define MAX_INSTRUCTION_SIZE 1000000
 
 void decode(unsigned int a) {
@@ -65,13 +73,6 @@ void decode(unsigned int a) {
   int breakout = 0;
   int foundOpcode = 0;
   int opcodeIndex = -1;
-  unsigned int rm = 0;
-  unsigned int rn = 0;
-  unsigned int rd = 0;
-  unsigned int imm = 0;
-  unsigned int dtaddr = 0;
-  unsigned int braddr = 0;
-  unsigned int condbraddr = 0;
 
   //TODO compare and find the opcode that is given in a
   while(shiftAmount > 0) {
