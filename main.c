@@ -69,6 +69,7 @@ void decode(unsigned int a) {
   unsigned int rn = 0;
   unsigned int rd = 0;
   unsigned int imm = 0;
+  unsigned int dtaddr = 0;
 
   //TODO compare and find the opcode that is given in a
   while(shiftAmount > 0) {
@@ -94,12 +95,16 @@ void decode(unsigned int a) {
     rn = a>>5 & 0x1F;
     imm = a>>10 & 0xFFF;
 	  printf(" -- I");
-	  printf(" -> Imm = &d, Rn = %d, Rd = %d\n", imm, rn, rd);
+	  printf(" -> Imm = %d, Rn = %d, Rd = %d\n", imm, rn, rd);
 
 	break;
 
 	case D:
+    rd = a & 0x1F;
+    rn = a>>5 & 0x1F;
+    dtaddr = a>>12 & 7FF;
 	  printf(" -- D\n");
+    printf(" -> DTa = %d, Rn = %d, Rt = %d\n", dtaddr, rn, rd);
 	break;
 
 	case B:
@@ -121,40 +126,6 @@ void decode(unsigned int a) {
 
       foundOpcode = 1;
       breakout = 1;
-    }
-
-    switch(opcodeTable[opcodeIndex].opformat) {
-      case 1:
-        printf("B");
-      break;
-
-      case 2:
-        printf("R");
-      break;
-
-      case  3:
-        printf("I");
-      break;
-
-      case  4:
-        printf("D");
-      break;
-
-      case 5:
-        printf("CB");
-      break;
-
-      case 6:
-        printf("IW");
-      break;
-
-      case 7:
-        printf("JS");
-      break;
-
-      default:
-        printf("Didn't find opFormat");
-      break;
     }
 
     //update shiftAmount
