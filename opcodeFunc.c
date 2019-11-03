@@ -43,7 +43,7 @@ void umulh(int *des, int *reg1, int *reg2); //???????
 void hexdump(FILE *f, int8_t *start, size_t size);
 void dump(FILE *f);
 char printable_char(uint8_t c);
-
+/*
 int main()
 {
 
@@ -66,6 +66,7 @@ int main()
   dump(read);
   return 0;
 }
+*/
 
 void add(int *des, int *reg1, int *reg2)
 {

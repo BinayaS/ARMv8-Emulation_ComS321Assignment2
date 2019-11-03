@@ -5,6 +5,7 @@
 //#include "opcodetable.c"
 #include "readFile.h"
 //#include "decoderStructure.h"
+#include "opcodeFunc.c"
 
 /*
 1 = B
