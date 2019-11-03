@@ -18,43 +18,43 @@
 */
 
 OpPair opcodeTable[] = {
-   {5, "B", B},
-   {37, "BL", B}, //End 6 bit opcodes
-   {84, "B.cond", CB},
-   {180, "CBZ", CB},
-   {181, "CBNZ", CB}, //End 8 bit opcodes
-   {580, "ADDI", I},
-   {584, "ANDI", I},
-   {712, "ORRI", I},
-   {836, "SUBI", I},
-   {840, "EORI", I},
-   {964, "SUBIS", I}, //End of 10 bit opcodes
-   {448, "STURB", D},
-   {450, "LDURB", D},
-   {960, "STURH", D},
-   {962, "LDURH", D},
-   {1104, "AND", R},
-   {1112, "ADD", R},
-   {1238, "SDIV", R},
-   {1238, "UDIV", R}, //For now, all division is unsigned, be careful
-   {1240, "MUL", R},
-   {1242, "SMULH", R},
-   {1246, "UMULH", R},
-   {1360, "ORR", R},
-   {1472, "STURW", D},
-   {1476, "LDURSW", D},
-   {1690, "LSR", R},
-   {1691, "LSL", R},
-   {1712, "BR", R},
-   {1616, "EOR", R},
-   {1624, "SUB", R},
-   {1880, "SUBS", R},
-   {1984, "STUR", D},
-   {1986, "LDUR", D},
-   {2044, "PRNL", JS},
-   {2045, "PRNT", JS},
-   {2046, "DUMP", JS},
-   {2047, "HALT", JS} //End 11 bit opcodes
+   {5, B, B},
+   {37, BL, B}, //End 6 bit opcodes
+   {84, BCOND, CB},
+   {180, CBZ, CB},
+   {181, CBNZ, CB}, //End 8 bit opcodes
+   {580, ADDI, I},
+   {584, ANDI, I},
+   {712, ORRI, I},
+   {836, SUBI, I},
+   {840, EORI, I},
+   {964, SUBIS, I}, //End of 10 bit opcodes
+   {448, STURB, D},
+   {450, LDURB, D},
+   {960, STURH, D},
+   {962, LDURH, D},
+   {1104, AND, R},
+   {1112, ADD, R},
+   {1238, SDIV, R},
+   {1238, UDIV, R}, //For now, all division is unsigned, be careful
+   {1240, MUL, R},
+   {1242, SMULH, R},
+   {1246, UMULH, R},
+   {1360, ORR, R},
+   {1472, STURW, D},
+   {1476, LDURSW, D},
+   {1690, LSR, R},
+   {1691, LSL, R},
+   {1712, BR, R},
+   {1616, EOR, R},
+   {1624, SUB, R},
+   {1880, SUBS, R},
+   {1984, STUR, D},
+   {1986, LDUR, D},
+   {2044, PRNL, JS},
+   {2045, PRNT, JS},
+   {2046, DUMP, JS},
+   {2047, HALT, JS} //End 11 bit opcodes
 };
 
 unsigned int rm = 0;
