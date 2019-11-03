@@ -294,12 +294,12 @@ void eorI(int *des, int *reg1, int val)
     *des = *reg1 ^ val;
 }
 
-//DO HALT
-// void halt()
-// {
-//     dump();
-//     exit(0); //terminates
-// }
+
+void halt(FILE *f)
+{
+    dump(f);
+    exit(0); //terminates
+}
 
 void ldur(int *des, int *reg1, int memory[], int offset)
 {
