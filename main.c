@@ -73,7 +73,7 @@ void decode(unsigned int a) {
 
 	case I:
 	  printf(" -- I");
-	  printf(" -> %d\n", a>>5 & 00000000000000000000000000011111);
+	  printf(" -> %d\n", a>>5 & 0x1F);
 	break;
 
 	case D:
