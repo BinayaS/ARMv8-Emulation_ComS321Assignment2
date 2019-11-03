@@ -119,7 +119,7 @@ void decode(unsigned int a) {
     rd = a & 0x1F;
     condbraddr = a>>5 & 0x7FFFF;
 	  printf(" -- CB");
-    printf(" -> CondBrA = %d", condbraddr);
+    printf(" -> CondBrA = %d\n", condbraddr);
 	break;
 
 	case IW:
