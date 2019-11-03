@@ -57,13 +57,15 @@ OpPair opcodeTable[] = {
    {2047, HALT, JS} //End 11 bit opcodes
 };
 
-unsigned int rm = 0;
-unsigned int rn = 0;
-unsigned int rd = 0;
-unsigned int imm = 0;
-unsigned int dtaddr = 0;
-unsigned int braddr = 0;
-unsigned int condbraddr = 0;
+typedef struct RegValues{
+  unsigned int rm;
+  unsigned int rn;
+  unsigned int rd;
+  unsigned int imm;
+  unsigned int dtaddr;
+  unsigned int braddr;
+  unsigned int condbraddr;
+} RegValues;
 
 #define MAX_INSTRUCTION_SIZE 1000000
 
