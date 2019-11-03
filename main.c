@@ -103,8 +103,8 @@ void decode(unsigned int a) {
 	case D:
     rd = a & 0x1F;
     rn = a>>5 & 0x1F;
-    dtaddr = a>>12 & 7FF;
-	  printf(" -- D\n");
+    dtaddr = a>>12 & 0x7FF;
+	  printf(" -- D");
     printf(" -> DTa = %d, Rn = %d, Rt = %d\n", dtaddr, rn, rd);
 	break;
 
