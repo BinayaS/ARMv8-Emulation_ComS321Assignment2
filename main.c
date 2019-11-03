@@ -65,6 +65,10 @@ void decode(unsigned int a) {
   int breakout = 0;
   int foundOpcode = 0;
   int opcodeIndex = -1;
+  unsigned int rm = 0;
+  unsigned int rn = 0;
+  unsigned int rd = 0;
+  unsigned int imm = 0;
 
   //TODO compare and find the opcode that is given in a
   while(shiftAmount > 0) {
@@ -78,12 +82,20 @@ void decode(unsigned int a) {
               shiftAmount, a>>shift, opcodeTable[opcodeIndex].opname);
       switch(opcodeTable[opcodeIndex].opformat) {
 	case R:
-	  printf(" -- R\n");
+    rd = a & 0x1F;
+    rn = a>>5 & 0x1F;
+    rm = a>>16 & 0x1f;
+    printf(" -- R");
+    printf(" -> Rm = %d, Rn = %d, Rd = %d\n", rm, rn, rd);
 	break;
 
 	case I:
+    rd = a & 0x1F;
+    rn = a>>5 & 0x1F;
+    imm = a>>10 & 0xFFF;
 	  printf(" -- I");
-	  printf(" -> %d\n", a>>5 & 0x1F);
+	  printf(" -> Imm = &d, Rn = %d, Rd = %d\n", imm, rn, rd);
+
 	break;
 
 	case D:
