@@ -1,15 +1,17 @@
 #include <stdio.h>
+#include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <ctype.h>
-
+#include "opcodeFunc.h"
 //uint32_t??
-int memory[4096]; //4096? //1025
-int stack[512]; //512?? //129
-int reg[32];
+u_int8_t memory[4096]; //4096? //1025
+u_int8_t stack[512]; //512?? //129
+u_int8_t reg[32];
 
 //PC is register 16??? 15??
 //SP & FP registers should be initialized to size of stack
-
+/*
 void add(int *des, int *reg1, int *reg2); //adds two registers to a destination register
 void addI(int *des, int *reg1, int val); //adds a value to a register
 void and(int *des, int *reg1, int *reg2);
@@ -43,7 +45,8 @@ void umulh(int *des, int *reg1, int *reg2); //???????
 void hexdump(FILE *f, int8_t *start, size_t size);
 void dump(FILE *f);
 char printable_char(uint8_t c);
-
+*/
+/*
 int main()
 {
 
@@ -66,6 +69,7 @@ int main()
   dump(read);
   return 0;
 }
+*/
 
 void add(int *des, int *reg1, int *reg2)
 {

@@ -1,3 +1,7 @@
+#include <stdlib.h>
+#include <stddef.h>
+#include <stdio.h>
+
 #ifndef OPCODEFUNC_H_
 #define OPCODEFUNC_H_
 
@@ -30,7 +34,7 @@ void lsr(int *des, int *reg1, int offset);
 void umulh(int *des, int *reg1, int *reg2);
 void dump(FILE *f);
 void hexdump(FILE *f, int8_t *start, size_t size);
-char printable_char(uint8_t c);
+char printable_char(u_int8_t c);
 
 
 #endif
