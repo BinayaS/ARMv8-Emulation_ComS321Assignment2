@@ -13,7 +13,7 @@ enum EnumOpFormat {
 };
 
 enum EnumOpName {
-  B,
+  BRANCH,
   BL,   //End 6 bit opcodes
   BCOND,
   CBZ,
@@ -48,7 +48,7 @@ enum EnumOpName {
   LDUR,
   PRNL,
   PRNT,
-  DUMP,  
+  DUMP,
   HALT//End 11 bit opcodes
 };
 
