@@ -18,7 +18,7 @@
 */
 
 OpPair opcodeTable[] = {
-   {5, B, B},
+   {5, BRANCH, B},
    {37, BL, B}, //End 6 bit opcodes
    {84, BCOND, CB},
    {180, CBZ, CB},
@@ -83,7 +83,7 @@ void decode(unsigned int a) {
     //search for opcode
     opcodeIndex = searchTable(a>>shift, opcodeTable);
     if(opcodeIndex >= 0){
-      printf("shiftAmount: %d -- %d -- %s",
+      printf("shiftAmount: %d -- %d -- %d",
               shiftAmount, a>>shift, opcodeTable[opcodeIndex].opname);
       switch(opcodeTable[opcodeIndex].opformat) {
 	case R:
