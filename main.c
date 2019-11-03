@@ -94,7 +94,7 @@ void decode(unsigned int a) {
     rn = a>>5 & 0x1F;
     imm = a>>10 & 0xFFF;
 	  printf(" -- I");
-	  printf(" -> Imm = &d, Rn = %d, Rd = %d\n", imm, rn, rd);
+	  printf(" -> Imm = %d, Rn = %d, Rd = %d\n", imm, rn, rd);
 
 	break;
 
@@ -121,40 +121,6 @@ void decode(unsigned int a) {
 
       foundOpcode = 1;
       breakout = 1;
-    }
-
-    switch(opcodeTable[opcodeIndex].opformat) {
-      case 1:
-        printf("B");
-      break;
-
-      case 2:
-        printf("R");
-      break;
-
-      case  3:
-        printf("I");
-      break;
-
-      case  4:
-        printf("D");
-      break;
-
-      case 5:
-        printf("CB");
-      break;
-
-      case 6:
-        printf("IW");
-      break;
-
-      case 7:
-        printf("JS");
-      break;
-
-      default:
-        printf("Didn't find opFormat");
-      break;
     }
 
     //update shiftAmount
