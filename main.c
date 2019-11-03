@@ -71,6 +71,7 @@ void decode(unsigned int a) {
   unsigned int imm = 0;
   unsigned int dtaddr = 0;
   unsigned int braddr = 0;
+  unsigned int condbraddr = 0;
 
   //TODO compare and find the opcode that is given in a
   while(shiftAmount > 0) {
@@ -115,7 +116,10 @@ void decode(unsigned int a) {
 	break;
 
 	case CB:
-	  printf(" -- CB\n");
+    rd = a & 0x1F;
+    condbraddr = a>>5 & 0x7FFFF;
+	  printf(" -- CB");
+    printf(" -> CondBrA = %d", condbraddr);
 	break;
 
 	case IW:
