@@ -58,18 +58,14 @@ OpPair opcodeTable[] = {
 };
 
 struct Data {
-  unsigned int rm;
-  unsigned int rn;
-  unsigned int rd;
-  unsigned int imm;
-  unsigned int dtaddr;
-  unsigned int braddr;
-  unsigned int condbraddr;
+  unsigned int rm, rn, rd, imm, dtaddr, braddr, condbraddr, instructionShift;
 };
 
 #define MAX_INSTRUCTION_SIZE 1000000
 
-struct Data instructionData[MAX_INSTRUCTION_SIZE] = {999999, 999999, 999999, 999999, 999999, 999999, 999999};
+struct Data instructionData[MAX_INSTRUCTION_SIZE];
+int instructionArray[MAX_INSTRUCTION_SIZE];
+int counter = 0;
 
 void decode(unsigned int a, int i) {
 
@@ -89,6 +85,7 @@ void decode(unsigned int a, int i) {
     if(opcodeIndex >= 0){
       printf("shiftAmount: %d -- %d -- %d",
               shiftAmount, a>>shift, opcodeTable[opcodeIndex].opname);
+      instructionData[i].instructionShift = shift;
       switch(opcodeTable[opcodeIndex].opformat) {
 	case R:
     instructionData[i].rd = a & 0x1F;
@@ -179,15 +176,32 @@ void decode(unsigned int a, int i) {
 
 }
 
+void functionCaller() {
+  int i;
+  unsigned int a;
+  for(i = 0; i < counter; i++) {
+    a = instructionArray[i];
+    switch(a>>instructionData[i].instructionShift) {
+      	case:
+      	break;
+
+      	case:
+      	break;
+
+	case:
+	break;
+    }
+  }
+}
+
+
 int main(int argc, char const *argv[])
 {
 
   //set local vars.
   int mainMemorySize = 4096;
   int stackSize = 512;
-  int instructionArray[MAX_INSTRUCTION_SIZE] = {-1};
-  int counter = 0;
-
+  
 
   //parse command line arguments if there are two or more arguments
   if(argc >= 2) {
@@ -232,11 +246,11 @@ int main(int argc, char const *argv[])
 
     decode(a, i);
 
-    printf("ID-rm: %d\n", instructionData[i].rm);
-
+    printf("ID -rm: %d -rd:%d -rn:%d\n", instructionData[i].rm, instructionData[i].rd, instructionData[i].rn);
+    
   }
 
-
+  functionCaller();
 
   return 0;
 };
