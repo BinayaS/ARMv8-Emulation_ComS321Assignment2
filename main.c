@@ -182,14 +182,147 @@ void functionCaller() {
   for(i = 0; i < counter; i++) {
     a = instructionArray[i];
     switch(a>>instructionData[i].instructionShift) {
-      	case:
-      	break;
 
-      	case:
-      	break;
+      //BRANCH
+      case 5:
+      break;
 
-	case:
-	break;
+      //BL
+      case 37:
+      break;
+
+      //BCOND
+      case 84:
+      break;
+
+      //CBZ
+      case 180:
+      break;
+
+      //ADDI
+      case 580:
+      break;
+
+      //ANDI
+      case 584:
+      break;
+
+      //ORRI
+      case 712:
+      break;
+
+      //SUBI
+      case 836:
+      break;
+
+      //EORI
+      case 840:
+      break;
+
+      //SUBIS
+      case 964:
+      break;
+
+      //STURB
+      case 448:
+      break;
+
+      //LDURB
+      case 450:
+      break;
+
+      //STURH
+      case 960:
+      break;
+
+      //LDURH
+      case 962:
+      break;
+
+      //AND
+      case 1104:
+      break;
+
+      //ADD
+      case 1112:
+      break;
+
+      //UDIV (also SDIV) note: all div. is unsigned
+      case 1238:
+      break;
+
+      //MUL
+      case 1240:
+      break;
+
+      //SMULH
+      case 1242:
+      break;
+
+      //UMULH
+      case 1246:
+      break;
+
+      //ORR
+      case 1360:
+      break;
+
+      //STURW
+      case 1472:
+      break;
+
+      //LDURSW
+      case 1476:
+      break;
+
+      //LSR
+      case 1690:
+      break;
+
+      //LSL
+      case 1691:
+      break;
+
+      //BR
+      case 1712:
+      break;
+
+      //EOR
+      case 1616:
+      break;
+
+      //SUB
+      case 1624:
+      break;
+
+      //SUBS
+      case 1880:
+      break;
+
+      //STUR
+      case 1984:
+      break;
+
+      //LDUR
+      case 1986:
+      break;
+
+      //PRNL
+      case 2044:
+      break;
+
+      //PRNT
+      case 2045:
+      break;
+
+      //DUMP
+      case 2046:
+      break;
+
+      //HALT
+      case 2047:
+      break;
+
     }
   }
 }
