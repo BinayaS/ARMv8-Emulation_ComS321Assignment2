@@ -232,7 +232,7 @@ int main(int argc, char const *argv[])
 
     decode(a, i);
 
-    printf("ID: %d\n", instructionData[i].rd);
+    printf("ID-rm: %d\n", instructionData[i].rm);
 
   }
 
