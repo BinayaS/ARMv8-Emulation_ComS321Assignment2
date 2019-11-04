@@ -57,17 +57,21 @@ OpPair opcodeTable[] = {
    {2047, HALT, JS} //End 11 bit opcodes
 };
 
-unsigned int rm = 0;
-unsigned int rn = 0;
-unsigned int rd = 0;
-unsigned int imm = 0;
-unsigned int dtaddr = 0;
-unsigned int braddr = 0;
-unsigned int condbraddr = 0;
+struct Data {
+  unsigned int rm;
+  unsigned int rn;
+  unsigned int rd;
+  unsigned int imm;
+  unsigned int dtaddr;
+  unsigned int braddr;
+  unsigned int condbraddr;
+};
 
 #define MAX_INSTRUCTION_SIZE 1000000
 
-void decode(unsigned int a) {
+struct Data instructionData[MAX_INSTRUCTION_SIZE] = {-1};
+
+void decode(unsigned int a, int i) {
 
   int shiftAmount = 6;
   int shift = 32 - shiftAmount;
@@ -87,41 +91,41 @@ void decode(unsigned int a) {
               shiftAmount, a>>shift, opcodeTable[opcodeIndex].opname);
       switch(opcodeTable[opcodeIndex].opformat) {
 	case R:
-    rd = a & 0x1F;
-    rn = a>>5 & 0x1F;
-    rm = a>>16 & 0x1f;
+    instructionData[i].rd = a & 0x1F;
+    instructionData[i].rn = a>>5 & 0x1F;
+    instructionData[i].rm = a>>16 & 0x1f;
     printf(" -- R");
-    printf(" -> Rm = %d, Rn = %d, Rd = %d\n", rm, rn, rd);
+    printf(" -> Rm = %d, Rn = %d, Rd = %d\n", instructionData[i].rm, instructionData[i].rn, instructionData[i].rd);
 	break;
 
 	case I:
-    rd = a & 0x1F;
-    rn = a>>5 & 0x1F;
-    imm = a>>10 & 0xFFF;
+    instructionData[i].rd = a & 0x1F;
+    instructionData[i].rn = a>>5 & 0x1F;
+    instructionData[i].imm = a>>10 & 0xFFF;
 	  printf(" -- I");
-	  printf(" -> Imm = %d, Rn = %d, Rd = %d\n", imm, rn, rd);
+	  printf(" -> Imm = %d, Rn = %d, Rd = %d\n", instructionData[i].imm, instructionData[i].rn, instructionData[i].rd);
 
 	break;
 
 	case D:
-    rd = a & 0x1F;
-    rn = a>>5 & 0x1F;
-    dtaddr = a>>12 & 0x7FF;
+    instructionData[i].rd = a & 0x1F;
+    instructionData[i].rn = a>>5 & 0x1F;
+    instructionData[i].dtaddr = a>>12 & 0x7FF;
 	  printf(" -- D");
-    printf(" -> DTa = %d, Rn = %d, Rt = %d\n", dtaddr, rn, rd);
+    printf(" -> DTa = %d, Rn = %d, Rt = %d\n", instructionData[i].dtaddr, instructionData[i].rn, instructionData[i].rd);
 	break;
 
 	case B:
-    braddr = a & 0x3FFFFFF;
+    instructionData[i].braddr = a & 0x3FFFFFF;
 	  printf(" -- B");
-    printf(" -> BRa = %d\n", braddr);
+    printf(" -> BRa = %d\n", instructionData[i].braddr);
 	break;
 
 	case CB:
-    rd = a & 0x1F;
-    condbraddr = a>>5 & 0x7FFFF;
+    instructionData[i].rd = a & 0x1F;
+    instructionData[i].condbraddr = a>>5 & 0x7FFFF;
 	  printf(" -- CB");
-    printf(" -> CondBrA = %d, Rt = %d\n", condbraddr, rd);
+    printf(" -> CondBrA = %d, Rt = %d\n", instructionData[i].condbraddr, instructionData[i].rd);
 	break;
 
 	case IW:
@@ -226,23 +230,8 @@ int main(int argc, char const *argv[])
   for(int i = 0; i < counter; i++) {
     unsigned int a = instructionArray[i];
 
-    decode(a);
+    decode(a, i);
 
-    /*
-    int shift10 = 32-10;
-    int shift11 = 32-11;
-    int ADDI = 580;
-    int STUR = 1984;
-    printf("shift10 decimal: %d -- shift11 decimal: %d -- ", a>>shift10, a>>shift11);
-
-
-    if(STUR == a>>shift11) {
-      printf("hex: %x ", a);
-      printf("MATCH!\n");
-    }  else {
-      printf("hex: %x\n", a);
-    }
-    */
   }
 
 
