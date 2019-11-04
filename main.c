@@ -69,7 +69,7 @@ struct Data {
 
 #define MAX_INSTRUCTION_SIZE 1000000
 
-struct Data instructionData[MAX_INSTRUCTION_SIZE] = {-1};
+struct Data instructionData[MAX_INSTRUCTION_SIZE] = {999999, 999999, 999999, 999999, 999999, 999999, 999999};
 
 void decode(unsigned int a, int i) {
 
