@@ -201,10 +201,12 @@ void functionCaller() {
 
       //ADDI
       case 580:
+        addI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
       break;
 
       //ANDI
       case 584:
+        andI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
       break;
 
       //ORRI
@@ -213,10 +215,12 @@ void functionCaller() {
 
       //SUBI
       case 836:
+        subI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
       break;
 
       //EORI
       case 840:
+        eorI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
       break;
 
       //SUBIS
@@ -241,18 +245,22 @@ void functionCaller() {
 
       //AND
       case 1104:
+        and(instructionData[i].rd, instructionData[i].rn, instructionData.rm);
       break;
 
       //ADD
       case 1112:
+        add(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
       break;
 
       //UDIV (also SDIV) note: all div. is unsigned
       case 1238:
+        udiv(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
       break;
 
       //MUL
       case 1240:
+        mul(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
       break;
 
       //SMULH
@@ -265,6 +273,7 @@ void functionCaller() {
 
       //ORR
       case 1360:
+        orr(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
       break;
 
       //STURW
@@ -289,10 +298,12 @@ void functionCaller() {
 
       //EOR
       case 1616:
+        eor(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
       break;
 
       //SUB
       case 1624:
+        sub(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
       break;
 
       //SUBS
@@ -309,6 +320,7 @@ void functionCaller() {
 
       //PRNL
       case 2044:
+        prnl();
       break;
 
       //PRNT
@@ -334,7 +346,7 @@ int main(int argc, char const *argv[])
   //set local vars.
   int mainMemorySize = 4096;
   int stackSize = 512;
-  
+
 
   //parse command line arguments if there are two or more arguments
   if(argc >= 2) {
@@ -380,7 +392,7 @@ int main(int argc, char const *argv[])
     decode(a, i);
 
     printf("ID -rm: %d -rd:%d -rn:%d\n", instructionData[i].rm, instructionData[i].rd, instructionData[i].rn);
-    
+
   }
 
   functionCaller();
