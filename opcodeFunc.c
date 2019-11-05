@@ -27,6 +27,7 @@ void prnt(int *reg);
 // FILE *br(*char file, int *reg, int *pcReg);
 // FILE *cbz(*char file, int *reg, int val, int *pcReg);
 void eor(int *des, int *reg1, int *reg2);
+void eorI(int *des, int *reg1, int val);
 void mul(int *des, int *reg1, int *reg2);
 void orr(int *des, int *reg1, int *reg2);
 void orrI(int *des, int *reg1, int val);

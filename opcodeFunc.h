@@ -17,6 +17,7 @@ void sdiv(int *des, int *reg1, int *reg2);
 void prnl();
 void prnt(int *reg);
 void eor(int *des, int *reg1, int *reg2);
+void eorI(int *des, int *reg1, int val);
 void mul(int *des, int *reg1, int *reg2);
 void orr(int *des, int *reg1, int *reg2);
 void orrI(int *des, int *reg1, int val);
