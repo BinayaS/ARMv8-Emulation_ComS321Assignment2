@@ -230,18 +230,23 @@ void functionCaller() {
 
       //STURB
       case 448:
+        //this is very questionable
+        sturB(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
       break;
 
       //LDURB
       case 450:
+        ldurB(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
       break;
 
       //STURH
       case 960:
+        sturH(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
       break;
 
       //LDURH
       case 962:
+        ldurH(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
       break;
 
       //AND
@@ -281,20 +286,24 @@ void functionCaller() {
 
       //STURW
       case 1472:
+        sturW(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
       break;
 
       //LDURSW
       case 1476:
+        ldurSW(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
       break;
 
       //LSR
       case 1690:
-        lsr(instructionData[i].rd, instructionData[i].rn, instructionData[i].instructionShift);
+        //TODO
+        //lsr(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
       break;
 
       //LSL
       case 1691:
-        lsl(instructionData[i].rd, instructionData[i].rn, instructionData[i].instructionShift);
+        //TODO
+        //lsl(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
       break;
 
       //BR
@@ -317,10 +326,12 @@ void functionCaller() {
 
       //STUR
       case 1984:
+        stur(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
       break;
 
       //LDUR
       case 1986:
+        ldur(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
       break;
 
       //PRNL
@@ -330,6 +341,7 @@ void functionCaller() {
 
       //PRNT
       case 2045:
+        //which register is it printing?
       break;
 
       //DUMP
@@ -353,6 +365,10 @@ int main(int argc, char const *argv[])
   //set local vars.
   int mainMemorySize = 4096;
   int stackSize = 512;
+
+  //TODO???????
+  u_int8_t memory[4096];
+  u_int8_t stack[512];
 
 
   //parse command line arguments if there are two or more arguments
