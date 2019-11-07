@@ -33,9 +33,9 @@ void sturW(int *des, int memory[], int *reg, int offset);
 void lsl(int *des, int *reg1, int offset);
 void lsr(int *des, int *reg1, int offset);
 void umulh(int *des, int *reg1, int *reg2);
-void dump(FILE *f);
-void halt(FILE *f);
-void hexdump(FILE *f, int8_t *start, size_t size);
+void dump();
+void halt();
+void hexdump(int8_t *start, size_t size);
 char printable_char(u_int8_t c);
 
 

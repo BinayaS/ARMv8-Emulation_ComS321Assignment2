@@ -211,6 +211,7 @@ void functionCaller() {
 
       //ORRI
       case 712:
+        orrI(intstructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
       break;
 
       //SUBI
@@ -265,10 +266,12 @@ void functionCaller() {
 
       //SMULH
       case 1242:
+        smulh(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
       break;
 
       //UMULH
       case 1246:
+        umulh(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
       break;
 
       //ORR
@@ -286,10 +289,12 @@ void functionCaller() {
 
       //LSR
       case 1690:
+        lsr(instructionData[i].rd, instructionData[i].rn, instructionData[i].instructionShift);
       break;
 
       //LSL
       case 1691:
+        lsl(instructionData[i].rd, instructionData[i].rn, instructionData[i].instructionShift);
       break;
 
       //BR
@@ -329,10 +334,12 @@ void functionCaller() {
 
       //DUMP
       case 2046:
+        dump();
       break;
 
       //HALT
       case 2047:
+        halt();
       break;
 
     }

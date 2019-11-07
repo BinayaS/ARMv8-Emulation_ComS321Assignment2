@@ -47,30 +47,28 @@ void hexdump(FILE *f, int8_t *start, size_t size);
 void dump(FILE *f);
 char printable_char(uint8_t c);
 */
-/*
-int main()
-{
 
-  for(int i = 0; i < 32; i ++)
-  {
-    reg[i] = 0;
-  }
+// int main()
+// {
+//
+//   for(int i = 0; i < 32; i ++)
+//   {
+//     reg[i] = 0;
+//   }
+//
+//   memory[0] = 10;
+//   memory[1] = 12;
+//   memory[2] = 46;
+//   reg[28] = 512;
+//   reg[29] = 512;
+//
+//   //stur(&reg[0], memory[], &reg[1], 24);
+//   //smulh(&reg[1], &reg[2], &reg[3]);
+//   //dump(&memory[0], 4096);
+//   dump();
+//   return 0;
+// }
 
-  memory[0] = 10;
-  memory[1] = 12;
-  memory[2] = 46;
-  reg[28] = 512;
-  reg[29] = 512;
-
-  FILE *read;
-  read = fopen("test.txt", "r");
-  //stur(&reg[0], memory[], &reg[1], 24);
-  //smulh(&reg[1], &reg[2], &reg[3]);
-  //dump(read, &memory[0], 4096);
-  dump(read);
-  return 0;
-}
-*/
 
 void add(int *des, int *reg1, int *reg2)
 {
@@ -188,7 +186,7 @@ char printable_char(uint8_t c)
   return isprint(c) ? c : '.';
 }
 
-void hexdump(FILE *f, int8_t *start, size_t size) //displays contents of registers, memory, and disassembled program
+void hexdump(int8_t *start, size_t size) //displays contents of registers, memory, and disassembled program
 {
   size_t i;
 
@@ -236,7 +234,7 @@ void hexdump(FILE *f, int8_t *start, size_t size) //displays contents of registe
   printf("%08x\n", (int32_t) size);
 }
 
-void dump(FILE *f)
+void dump()
 {
     printf("%s\n", "Registers: ");
     for(int i = 0; i < 32; i ++)
@@ -276,11 +274,11 @@ void dump(FILE *f)
     prnl();
     //SP & FP - initialized to the size of the stack
     printf("%s\n", "Stack: ");
-    hexdump(f, &stack[0], 512);
+    hexdump(&stack[0], 512);
     prnl();
     prnl();
     printf("%s\n", "Main Memory: ");
-    hexdump(f, &memory[0], 4096);
+    hexdump(&memory[0], 4096);
 }
 
 void eor(int *des, int *reg1, int *reg2)
@@ -296,9 +294,9 @@ void eorI(int *des, int *reg1, int val)
 }
 
 
-void halt(FILE *f)
+void halt()
 {
-    dump(f);
+    dump();
     exit(0); //terminates
 }
 
