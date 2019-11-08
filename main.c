@@ -57,17 +57,17 @@ OpPair opcodeTable[] = {
    {2047, HALT, JS} //End 11 bit opcodes
 };
 
-unsigned int rm = 0;
-unsigned int rn = 0;
-unsigned int rd = 0;
-unsigned int imm = 0;
-unsigned int dtaddr = 0;
-unsigned int braddr = 0;
-unsigned int condbraddr = 0;
+struct Data {
+  int rm, rn, rd, imm, dtaddr, braddr, condbraddr, instructionShift, shamt;
+};
 
 #define MAX_INSTRUCTION_SIZE 1000000
 
-void decode(unsigned int a) {
+struct Data instructionData[MAX_INSTRUCTION_SIZE];
+int instructionArray[MAX_INSTRUCTION_SIZE];
+int counter = 0;
+
+void decode(unsigned int a, int i) {
 
   int shiftAmount = 6;
   int shift = 32 - shiftAmount;
@@ -85,43 +85,45 @@ void decode(unsigned int a) {
     if(opcodeIndex >= 0){
       printf("shiftAmount: %d -- %d -- %d",
               shiftAmount, a>>shift, opcodeTable[opcodeIndex].opname);
+      instructionData[i].instructionShift = shift;
       switch(opcodeTable[opcodeIndex].opformat) {
 	case R:
-    rd = a & 0x1F;
-    rn = a>>5 & 0x1F;
-    rm = a>>16 & 0x1f;
+    instructionData[i].rd = a & 0x1F;
+    instructionData[i].rn = a>>5 & 0x1F;
+    instructionData[i].shamt = a>>10 & 0x20;
+    instructionData[i].rm = a>>16 & 0x1f;
     printf(" -- R");
-    printf(" -> Rm = %d, Rn = %d, Rd = %d\n", rm, rn, rd);
+    printf(" -> Rm = %d, Rn = %d, Rd = %d\n", instructionData[i].rm, instructionData[i].rn, instructionData[i].rd);
 	break;
 
 	case I:
-    rd = a & 0x1F;
-    rn = a>>5 & 0x1F;
-    imm = a>>10 & 0xFFF;
+    instructionData[i].rd = a & 0x1F;
+    instructionData[i].rn = a>>5 & 0x1F;
+    instructionData[i].imm = a>>10 & 0xFFF;
 	  printf(" -- I");
-	  printf(" -> Imm = %d, Rn = %d, Rd = %d\n", imm, rn, rd);
+	  printf(" -> Imm = %d, Rn = %d, Rd = %d\n", instructionData[i].imm, instructionData[i].rn, instructionData[i].rd);
 
 	break;
 
 	case D:
-    rd = a & 0x1F;
-    rn = a>>5 & 0x1F;
-    dtaddr = a>>12 & 0x7FF;
+    instructionData[i].rd = a & 0x1F;
+    instructionData[i].rn = a>>5 & 0x1F;
+    instructionData[i].dtaddr = a>>12 & 0x7FF;
 	  printf(" -- D");
-    printf(" -> DTa = %d, Rn = %d, Rt = %d\n", dtaddr, rn, rd);
+    printf(" -> DTa = %d, Rn = %d, Rt = %d\n", instructionData[i].dtaddr, instructionData[i].rn, instructionData[i].rd);
 	break;
 
 	case B:
-    braddr = a & 0x3FFFFFF;
+    instructionData[i].braddr = a & 0x3FFFFFF;
 	  printf(" -- B");
-    printf(" -> BRa = %d\n", braddr);
+    printf(" -> BRa = %d\n", instructionData[i].braddr);
 	break;
 
 	case CB:
-    rd = a & 0x1F;
-    condbraddr = a>>5 & 0x7FFFF;
+    instructionData[i].rd = a & 0x1F;
+    instructionData[i].condbraddr = a>>5 & 0x7FFFF;
 	  printf(" -- CB");
-    printf(" -> CondBrA = %d, Rt = %d\n", condbraddr, rd);
+    printf(" -> CondBrA = %d, Rt = %d\n", instructionData[i].condbraddr, instructionData[i].rd);
 	break;
 
 	case IW:
@@ -175,14 +177,199 @@ void decode(unsigned int a) {
 
 }
 
+void functionCaller() {
+  int i;
+  unsigned int a;
+  for(i = 0; i < counter; i++) {
+    a = instructionArray[i];
+    switch(a>>instructionData[i].instructionShift) {
+
+      //BRANCH
+      case 5:
+      break;
+
+      //BL
+      case 37:
+      break;
+
+      //BCOND
+      case 84:
+      break;
+
+      //CBZ
+      case 180:
+      break;
+
+      //ADDI
+      case 580:
+        addI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
+      break;
+
+      //ANDI
+      case 584:
+        andI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
+      break;
+
+      //ORRI
+      case 712:
+        orrI(intstructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
+      break;
+
+      //SUBI
+      case 836:
+        subI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
+      break;
+
+      //EORI
+      case 840:
+        eorI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
+      break;
+
+      //SUBIS
+      case 964:
+      break;
+
+      //STURB
+      case 448:
+        //this is very questionable
+        sturB(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
+      break;
+
+      //LDURB
+      case 450:
+        ldurB(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
+      break;
+
+      //STURH
+      case 960:
+        sturH(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
+      break;
+
+      //LDURH
+      case 962:
+        ldurH(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
+      break;
+
+      //AND
+      case 1104:
+        and(instructionData[i].rd, instructionData[i].rn, instructionData.rm);
+      break;
+
+      //ADD
+      case 1112:
+        add(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+      break;
+
+      //UDIV (also SDIV) note: all div. is unsigned
+      case 1238:
+        udiv(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+      break;
+
+      //MUL
+      case 1240:
+        mul(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+      break;
+
+      //SMULH
+      case 1242:
+        smulh(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+      break;
+
+      //UMULH
+      case 1246:
+        umulh(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+      break;
+
+      //ORR
+      case 1360:
+        orr(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+      break;
+
+      //STURW
+      case 1472:
+        sturW(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
+      break;
+
+      //LDURSW
+      case 1476:
+        ldurSW(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
+      break;
+
+      //LSR
+      case 1690:
+        //TODO
+        //lsr(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+      break;
+
+      //LSL
+      case 1691:
+        //TODO
+        //lsl(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+      break;
+
+      //BR
+      case 1712:
+      break;
+
+      //EOR
+      case 1616:
+        eor(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+      break;
+
+      //SUB
+      case 1624:
+        sub(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+      break;
+
+      //SUBS
+      case 1880:
+      break;
+
+      //STUR
+      case 1984:
+        stur(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
+      break;
+
+      //LDUR
+      case 1986:
+        ldur(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
+      break;
+
+      //PRNL
+      case 2044:
+        prnl();
+      break;
+
+      //PRNT
+      case 2045:
+        //which register is it printing?
+      break;
+
+      //DUMP
+      case 2046:
+        dump();
+      break;
+
+      //HALT
+      case 2047:
+        halt();
+      break;
+
+    }
+  }
+}
+
+
 int main(int argc, char const *argv[])
 {
 
   //set local vars.
   int mainMemorySize = 4096;
   int stackSize = 512;
-  int instructionArray[MAX_INSTRUCTION_SIZE] = {-1};
-  int counter = 0;
+
+  //TODO???????
+  u_int8_t memory[4096];
+  u_int8_t stack[512];
 
 
   //parse command line arguments if there are two or more arguments
@@ -224,28 +411,15 @@ int main(int argc, char const *argv[])
 
   //TODO compare opcode by taking the instruction and shifting right till you have just the beggining and compare it to the decimal version of the op code
   for(int i = 0; i < counter; i++) {
-    unsigned int a = instructionArray[i];
+    //unsigned int a = instructionArray[i];
+    int a = instructionArray[i];
+    decode(a, i);
 
-    decode(a);
+    printf("ID -rm: %d -rd:%d -rn:%d\n", instructionData[i].rm, instructionData[i].rd, instructionData[i].rn);
 
-    /*
-    int shift10 = 32-10;
-    int shift11 = 32-11;
-    int ADDI = 580;
-    int STUR = 1984;
-    printf("shift10 decimal: %d -- shift11 decimal: %d -- ", a>>shift10, a>>shift11);
-
-
-    if(STUR == a>>shift11) {
-      printf("hex: %x ", a);
-      printf("MATCH!\n");
-    }  else {
-      printf("hex: %x\n", a);
-    }
-    */
   }
 
-
+  //functionCaller();
 
   return 0;
 };

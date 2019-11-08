@@ -17,6 +17,7 @@ void sdiv(int *des, int *reg1, int *reg2);
 void prnl();
 void prnt(int *reg);
 void eor(int *des, int *reg1, int *reg2);
+void eorI(int *des, int *reg1, int val);
 void mul(int *des, int *reg1, int *reg2);
 void orr(int *des, int *reg1, int *reg2);
 void orrI(int *des, int *reg1, int val);
@@ -32,8 +33,9 @@ void sturW(int *des, int memory[], int *reg, int offset);
 void lsl(int *des, int *reg1, int offset);
 void lsr(int *des, int *reg1, int offset);
 void umulh(int *des, int *reg1, int *reg2);
-void dump(FILE *f);
-void hexdump(FILE *f, int8_t *start, size_t size);
+void dump();
+void halt();
+void hexdump(int8_t *start, size_t size);
 char printable_char(u_int8_t c);
 
 
