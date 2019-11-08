@@ -32,14 +32,14 @@ void mul(int *des, int *reg1, int *reg2);
 void orr(int *des, int *reg1, int *reg2);
 void orrI(int *des, int *reg1, int val);
 void smulh(int *des, int *reg1, int *reg2); //????
-void ldur(int *des, int *reg1, int memory[], int offset);
-void ldurB(int *des, int *reg1, int memory[], int offset);
-void ldurH(int *des, int *reg1, int memory[], int offset);
-void ldurSW(int *des, int *reg1, int memory[], int offset);
-void stur(int *des, int memory[], int *reg, int offset);
-void sturB(int *des, int memory[], int *reg, int offset);
-void sturH(int *des, int memory[], int *reg, int offset);
-void sturW(int *des, int memory[], int *reg, int offset);
+void ldur(int *des, int *reg1, u_int8_t *memory, int offset);
+void ldurB(int *des, int *reg1, u_int8_t *memory, int offset);
+void ldurH(int *des, int *reg1, u_int8_t *memory, int offset);
+void ldurSW(int *des, int *reg1, u_int8_t *memory, int offset);
+void stur(int *des, u_int8_t *memory, int *reg, int offset);
+void sturB(int *des, u_int8_t *memory, int *reg, int offset);
+void sturH(int *des, u_int8_t *memory, int *reg, int offset);
+void sturW(int *des, u_int8_t *memory, int *reg, int offset);
 void lsl(int *des, int *reg1, int offset);
 void lsr(int *des, int *reg1, int offset);
 void umulh(int *des, int *reg1, int *reg2); //???????
@@ -306,7 +306,7 @@ void halt()
     exit(0); //terminates
 }
 
-void ldur(int des, int reg1, int memory[], int offset, u_int32_t *regArr)
+void ldur(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
 {
     int val = offset / 8; //divides offset by 8
     //*des = memory[val + *reg1]; //loads into des register from the memory array with specified value
@@ -314,7 +314,7 @@ void ldur(int des, int reg1, int memory[], int offset, u_int32_t *regArr)
 }
 
 
-void ldurB(int des, int reg1, int memory[], int offset, u_int32_t *regArr)
+void ldurB(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
 {
     int val = offset / 8; //divides offset by 8
     //*des = memory[val + *reg1] & 0x1; //????
@@ -322,7 +322,7 @@ void ldurB(int des, int reg1, int memory[], int offset, u_int32_t *regArr)
 }
 
 
-void ldurH(int des, int reg1, int memory[], int offset, u_int32_t *regArr)
+void ldurH(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
 {
     int val = offset / 8; //divides offset by 8
     //*des = memory[val + *reg1] & 0xFFFF; //half word representation
@@ -330,7 +330,7 @@ void ldurH(int des, int reg1, int memory[], int offset, u_int32_t *regArr)
 }
 
 
-void ldurSW(int des, int reg1, int memory[], int offset, u_int32_t *regArr)
+void ldurSW(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
 {
     int val = offset / 8; //divides offset by 8
     //*des = memory[val + *reg1] & 0xFFFFFFFF; //in theory, word representation, if a half word --> 0xFFFF a word --> 0xFFFFFFFF
@@ -394,7 +394,7 @@ void smulh(int des, int reg1, int reg2, u_int32_t *regArr) //???
 }
 
 
-void stur(int des, int memory[], int reg, int offset, u_int32_t *regArr)
+void stur(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
 {
     int val = offset / 8;
     //memory[*reg + val] = *des;
@@ -402,7 +402,7 @@ void stur(int des, int memory[], int reg, int offset, u_int32_t *regArr)
 }
 
 
-void sturB(int des, int memory[], int reg, int offset, u_int32_t *regArr)
+void sturB(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
 {
     int val = offset / 8;
     //memory[*reg + val] = *des & 0x1;
@@ -410,7 +410,7 @@ void sturB(int des, int memory[], int reg, int offset, u_int32_t *regArr)
 }
 
 
-void sturH(int des, int memory[], int reg, int offset, u_int32_t *regArr)
+void sturH(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
 {
     int val = offset / 8;
     //memory[*reg + val] = *des & 0xFFFF;
@@ -418,7 +418,7 @@ void sturH(int des, int memory[], int reg, int offset, u_int32_t *regArr)
 }
 
 
-void sturW(int des, int memory[], int reg, int offset, u_int32_t *regArr)
+void sturW(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
 {
     int val = offset / 8;
     //memory[*reg + val] = *des & 0xFFFFFFFF;
