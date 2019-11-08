@@ -285,16 +285,18 @@ void dump()
     hexdump(&memory[0], 4096);
 }
 
-void eor(int *des, int *reg1, int *reg2, u_int32_t *regArr)
+void eor(int des, int reg1, int reg2, u_int32_t *regArr)
 {
     //*des = ~(*reg1 & *reg2) & ~(~(*reg1) & ~(*reg2));
-    *des = *reg1 ^ *reg2;
+    //*des = *reg1 ^ *reg2;
+    regArr[des] = regArr[reg1] ^ regArr[reg2];
 }
 
-void eorI(int *des, int *reg1, int val, u_int32_t *regArr)
+void eorI(int des, int reg1, int val, u_int32_t *regArr)
 {
     //*des = ~(*reg1 & val) & ~(~(*reg1) & ~(val));
-    *des = *reg1 ^ val;
+    //*des = *reg1 ^ val;
+    regArr[des] = regArr[reg1] ^ val;
 }
 
 
