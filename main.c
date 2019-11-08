@@ -65,7 +65,7 @@ struct Data {
 
 struct Data instructionData[MAX_INSTRUCTION_SIZE];
 int instructionArray[MAX_INSTRUCTION_SIZE];
-u_int32_t reg[32];
+u_int32_t regArr[32];
 int counter = 0;
 
 void decode(unsigned int a, int i) {
