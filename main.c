@@ -213,7 +213,7 @@ void functionCaller() {
 
       //ORRI
       case 712:
-        orrI(intstructionData[i].rd, instructionData[i].rn, instructionData[i].imm, regArr);
+        orrI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm, regArr);
       break;
 
       //SUBI
