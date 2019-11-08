@@ -58,7 +58,7 @@ OpPair opcodeTable[] = {
 };
 
 struct Data {
-  unsigned int rm, rn, rd, imm, dtaddr, braddr, condbraddr, instructionShift, shamt;
+  int rm, rn, rd, imm, dtaddr, braddr, condbraddr, instructionShift, shamt;
 };
 
 #define MAX_INSTRUCTION_SIZE 1000000
@@ -412,15 +412,15 @@ int main(int argc, char const *argv[])
 
   //TODO compare opcode by taking the instruction and shifting right till you have just the beggining and compare it to the decimal version of the op code
   for(int i = 0; i < counter; i++) {
-    unsigned int a = instructionArray[i];
-
+    //unsigned int a = instructionArray[i];
+    int a = instructionArray[i];
     decode(a, i);
 
     printf("ID -rm: %d -rd:%d -rn:%d\n", instructionData[i].rm, instructionData[i].rd, instructionData[i].rn);
 
   }
 
-  functionCaller();
+  //functionCaller();
 
   return 0;
 };
