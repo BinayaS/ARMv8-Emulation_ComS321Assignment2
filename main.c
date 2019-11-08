@@ -253,7 +253,7 @@ void functionCaller() {
 
       //AND
       case 1104:
-        and(instructionData[i].rd, instructionData[i].rn, instructionData.rm, regArr);
+        and(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
       break;
 
       //ADD
