@@ -58,7 +58,7 @@ OpPair opcodeTable[] = {
 };
 
 struct Data {
-  unsigned int rm, rn, rd, imm, dtaddr, braddr, condbraddr, instructionShift;
+  unsigned int rm, rn, rd, imm, dtaddr, braddr, condbraddr, instructionShift, shamt;
 };
 
 #define MAX_INSTRUCTION_SIZE 1000000
@@ -90,6 +90,7 @@ void decode(unsigned int a, int i) {
 	case R:
     instructionData[i].rd = a & 0x1F;
     instructionData[i].rn = a>>5 & 0x1F;
+    instructionData[i].shamt = a>>10 & 0x20;
     instructionData[i].rm = a>>16 & 0x1f;
     printf(" -- R");
     printf(" -> Rm = %d, Rn = %d, Rd = %d\n", instructionData[i].rm, instructionData[i].rn, instructionData[i].rd);
