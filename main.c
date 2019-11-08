@@ -373,7 +373,9 @@ void functionCaller() {
 
       //DUMP
       case 2046:
-        dump();
+        //TODO
+        //how would it access memory & stack to dump??
+        dump(regArr);
       break;
 
       //HALT
