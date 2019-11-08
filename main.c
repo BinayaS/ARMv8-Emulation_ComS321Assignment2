@@ -368,8 +368,7 @@ void functionCaller() {
 
       //PRNT
       case 2045:
-        //which register is it printing?
-        //prnt();
+        prnt(instructionData[i].rd, regArr);
       break;
 
       //DUMP
