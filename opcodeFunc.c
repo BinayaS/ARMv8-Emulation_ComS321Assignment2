@@ -374,9 +374,9 @@ void prnl()
     printf("\n");
 }
 
-void prnt(int *reg)
+void prnt(int reg, u_int32_t *regArr)
 {
-    printf("Decimal: %d\nHex: %x\n", *reg, *reg);
+    printf("Decimal: %d\nHex: %x\n", regArr[reg], regArr[reg]);
 }
 
 

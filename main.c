@@ -85,31 +85,31 @@ void decode(int a, int i) {
 
     //search for opcode
     //opcodeIndex = searchTable(a>>shift, opcodeTable);
-    
+
     switch(shiftAmount) {
       case 6:
         mask = 0x3F;
       break;
-      
+
       case 8:
         mask = 0xFF;
       break;
-      
+
       case 9:
         mask = 0x1FF;
       break;
-      
+
       case 10:
         mask = 0x3FF;
       break;
-      
+
       case 11:
         mask = 0x7FF;
       break;
     }
-    
+
     opcodeIndex = searchTable(a>>shift & mask, opcodeTable);
-    
+
     if(opcodeIndex >= 0){
       printf("shiftAmount: %d -- %d -- %d",
               shiftAmount, a>>shift & mask, opcodeTable[opcodeIndex].opname);
@@ -325,14 +325,12 @@ void functionCaller() {
 
       //LSR
       case 1690:
-        //TODO
-        //lsr(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+        lsr(instructionData[i].rd, instructionData[i].rn, instructionData[i].shamt, regArr);
       break;
 
       //LSL
       case 1691:
-        //TODO
-        //lsl(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+        lsl(instructionData[i].rd, instructionData[i].rn, instructionData[i].shamt, regArr);
       break;
 
       //BR
@@ -371,6 +369,7 @@ void functionCaller() {
       //PRNT
       case 2045:
         //which register is it printing?
+        //prnt();
       break;
 
       //DUMP
