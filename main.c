@@ -69,13 +69,14 @@ u_int32_t regArr[32];
 u_int8_t memory[4096];
 int counter = 0;
 
-void decode(unsigned int a, int i) {
+void decode(int a, int i) {
 
   int shiftAmount = 6;
   int shift = 32 - shiftAmount;
   int breakout = 0;
   int foundOpcode = 0;
   int opcodeIndex = -1;
+  int mask = 0x7FF;
 
   //TODO compare and find the opcode that is given in a
   while(shiftAmount > 0) {
@@ -83,10 +84,35 @@ void decode(unsigned int a, int i) {
     //printf("%d\n", a>>shift);
 
     //search for opcode
-    opcodeIndex = searchTable(a>>shift, opcodeTable);
+    //opcodeIndex = searchTable(a>>shift, opcodeTable);
+    
+    switch(shiftAmount) {
+      case 6:
+        mask = 0x3F;
+      break;
+      
+      case 8:
+        mask = 0xFF;
+      break;
+      
+      case 9:
+        mask = 0x1FF;
+      break;
+      
+      case 10:
+        mask = 0x3FF;
+      break;
+      
+      case 11:
+        mask = 0x7FF;
+      break;
+    }
+    
+    opcodeIndex = searchTable(a>>shift & mask, opcodeTable);
+    
     if(opcodeIndex >= 0){
       printf("shiftAmount: %d -- %d -- %d",
-              shiftAmount, a>>shift, opcodeTable[opcodeIndex].opname);
+              shiftAmount, a>>shift & mask, opcodeTable[opcodeIndex].opname);
       instructionData[i].instructionShift = shift;
       switch(opcodeTable[opcodeIndex].opformat) {
 	case R:
@@ -409,6 +435,8 @@ int main(int argc, char const *argv[])
   for(int i = 0; i < counter; i++) {
     printf("%x\n", instructionArray[i]);
   }
+
+  printf("-----\n");
 
   //TODO compare opcode by taking the instruction and shifting right till you have just the beggining and compare it to the decimal version of the op code
   for(int i = 0; i < counter; i++) {
