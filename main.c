@@ -57,21 +57,9 @@ OpPair opcodeTable[] = {
    {2047, HALT, JS} //End 11 bit opcodes
 };
 
-<<<<<<< HEAD
-typedef struct RegValues{
-  unsigned int rm;
-  unsigned int rn;
-  unsigned int rd;
-  unsigned int imm;
-  unsigned int dtaddr;
-  unsigned int braddr;
-  unsigned int condbraddr;
-} RegValues;
-=======
 struct Data {
   unsigned int rm, rn, rd, imm, dtaddr, braddr, condbraddr, instructionShift;
 };
->>>>>>> f5f00d69b6113022fa749827342d8e17627726e8
 
 #define MAX_INSTRUCTION_SIZE 1000000
 
