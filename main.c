@@ -5,7 +5,7 @@
 //#include "opcodetable.c"
 #include "readFile.h"
 //#include "decoderStructure.h"
-#include "opcodeFunc.c"
+#include "opcodeFunc.h"
 
 /*
 1 = B
@@ -66,6 +66,7 @@ struct Data {
 struct Data instructionData[MAX_INSTRUCTION_SIZE];
 int instructionArray[MAX_INSTRUCTION_SIZE];
 u_int32_t regArr[32];
+u_int8_t memory[4096];
 int counter = 0;
 
 void decode(unsigned int a, int i) {
@@ -369,7 +370,6 @@ int main(int argc, char const *argv[])
   int stackSize = 512;
 
   //TODO???????
-  u_int8_t memory[4096];
   u_int8_t stack[512];
 
 
