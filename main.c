@@ -448,7 +448,7 @@ int main(int argc, char const *argv[])
 
   }
 
-  //functionCaller();
+  functionCaller();
 
   return 0;
 };
