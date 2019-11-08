@@ -65,6 +65,7 @@ struct Data {
 
 struct Data instructionData[MAX_INSTRUCTION_SIZE];
 int instructionArray[MAX_INSTRUCTION_SIZE];
+u_int32_t reg[32];
 int counter = 0;
 
 void decode(unsigned int a, int i) {
@@ -202,27 +203,27 @@ void functionCaller() {
 
       //ADDI
       case 580:
-        addI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
+        addI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm, regArr);
       break;
 
       //ANDI
       case 584:
-        andI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
+        andI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm, regArr);
       break;
 
       //ORRI
       case 712:
-        orrI(intstructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
+        orrI(intstructionData[i].rd, instructionData[i].rn, instructionData[i].imm, regArr);
       break;
 
       //SUBI
       case 836:
-        subI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
+        subI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm, regArr);
       break;
 
       //EORI
       case 840:
-        eorI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm);
+        eorI(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm, regArr);
       break;
 
       //SUBIS
@@ -232,67 +233,67 @@ void functionCaller() {
       //STURB
       case 448:
         //this is very questionable
-        sturB(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
+        sturB(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr, regArr);
       break;
 
       //LDURB
       case 450:
-        ldurB(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
+        ldurB(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr, regArr);
       break;
 
       //STURH
       case 960:
-        sturH(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
+        sturH(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr, regArr);
       break;
 
       //LDURH
       case 962:
-        ldurH(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
+        ldurH(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr, regArr);
       break;
 
       //AND
       case 1104:
-        and(instructionData[i].rd, instructionData[i].rn, instructionData.rm);
+        and(instructionData[i].rd, instructionData[i].rn, instructionData.rm, regArr);
       break;
 
       //ADD
       case 1112:
-        add(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+        add(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
       break;
 
       //UDIV (also SDIV) note: all div. is unsigned
       case 1238:
-        udiv(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+        udiv(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
       break;
 
       //MUL
       case 1240:
-        mul(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+        mul(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
       break;
 
       //SMULH
       case 1242:
-        smulh(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+        smulh(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
       break;
 
       //UMULH
       case 1246:
-        umulh(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+        umulh(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
       break;
 
       //ORR
       case 1360:
-        orr(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+        orr(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
       break;
 
       //STURW
       case 1472:
-        sturW(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
+        sturW(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr, regArr);
       break;
 
       //LDURSW
       case 1476:
-        ldurSW(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
+        ldurSW(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr, regArr);
       break;
 
       //LSR
@@ -313,12 +314,12 @@ void functionCaller() {
 
       //EOR
       case 1616:
-        eor(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+        eor(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
       break;
 
       //SUB
       case 1624:
-        sub(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm);
+        sub(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
       break;
 
       //SUBS
@@ -327,12 +328,12 @@ void functionCaller() {
 
       //STUR
       case 1984:
-        stur(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr);
+        stur(instructionData[i].rd, memory, instructionData[i].rn, instructionData[i].dtaddr, regArr);
       break;
 
       //LDUR
       case 1986:
-        ldur(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr);
+        ldur(instructionData[i].rd, instructionData[i].rn, memory, instructionData[i].dtaddr, regArr);
       break;
 
       //PRNL
