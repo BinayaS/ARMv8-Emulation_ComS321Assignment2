@@ -222,7 +222,7 @@ void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of regis
                     " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
                     " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
                     " |%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c|\n",
-                    (int32_t) i,
+                    (int32_t) i*8,
                     (start[i]>>56)&0x4, (start[i]>>48)&0x4, (start[i]>>40)&0x4, (start[i]>>32)&0x4,
                     (start[i]>>24)&0x4, (start[i]>>16)&0x4, (start[i]>>8)&0x4, (start[i])&0x4,
                     (start[i + 1]>>56)&0x4, (start[i + 1]>>48)&0x4, (start[i + 1]>>40)&0x4, (start[i + 1]>>32)&0x4,
@@ -237,7 +237,7 @@ void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of regis
                     printable_char((start[i + 1]>>8)&0x4), printable_char((start[i + 1])&0x4));
   }
   //fprintf(f, "%08x\n", (int32_t) size);
-  printf("%08x\n", (int32_t) size);
+  printf("%08x\n", (int32_t) size*16);
 }
 
 void dump(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack, FILE *f)
