@@ -15,7 +15,7 @@ void subI(int des, int reg1, int val, u_int32_t *regArr);
 void udiv(int des, int reg1, int reg2, u_int32_t *regArr);
 void sdiv(int des, int reg1, int reg2, u_int32_t *regArr);
 void prnl();
-void prnt(int *reg, u_int32_t *regArr);
+void prnt(int reg, u_int32_t *regArr);
 void eor(int des, int reg1, int reg2, u_int32_t *regArr);
 void eorI(int des, int reg1, int val, u_int32_t *regArr);
 void mul(int des, int reg1, int reg2, u_int32_t *regArr);
@@ -34,7 +34,7 @@ void lsl(int des, int reg1, int offset, u_int32_t *regArr);
 void lsr(int des, int reg1, int offset, u_int32_t *regArr);
 void umulh(int des, int reg1, int reg2, u_int32_t *regArr);
 void dump(u_int32_t *regArr);
-void halt();
+void halt(u_int32_t *regArr);
 void hexdump(int8_t *start, size_t size);
 char printable_char(u_int8_t c);
 

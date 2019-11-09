@@ -161,6 +161,10 @@ void decode(int a, int i) {
 	case JS:
 	  printf(" -- JS\n");
 	break;
+
+	case DEFAULT:
+	  printf(" -- DEFAULT OPFORMAT\n");
+	break;
       }
 
       foundOpcode = 1;
