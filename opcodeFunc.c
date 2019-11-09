@@ -235,7 +235,7 @@ void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of regis
                     printable_char(start[i + 10]), printable_char(start[i + 11]),
                     printable_char(start[i + 12]), printable_char(start[i + 13]),
                     printable_char(start[i + 14]), printable_char(start[i + 15]));
- 		    
+
   }
   //fprintf(f, "%08x\n", (int32_t) size);
   printf("%08x\n", (int32_t) size);
@@ -281,11 +281,11 @@ void dump(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack, FILE *f)
     prnl();
     //SP & FP - initialized to the size of the stack
     printf("%s\n", "Stack: ");
-    hexdump(f, stack, 512);
+    hexdump(f, stack, 64);
     prnl();
     prnl();
     printf("%s\n", "Main Memory: ");
-    hexdump(f, memory, 4096);
+    hexdump(f, memory, 512);
 }
 
 void eor(int des, int reg1, int reg2, u_int64_t *regArr)
