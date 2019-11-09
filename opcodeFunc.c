@@ -194,7 +194,7 @@ void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of regis
 {
   size_t i;
 
-  for (i = 0; i < size - (size % 16); i += 16)
+  for (i = 0; i < size - (size % 2); i += 2)
   {
 	  /*
      fprintf(f,
@@ -223,19 +223,18 @@ void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of regis
                     " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
                     " |%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c|\n",
                     (int32_t) i,
-                    start[i +  0], start[i +  1], start[i +  2], start[i +  3],
-                    start[i +  4], start[i +  5], start[i +  6], start[i +  7],
-                    start[i +  8], start[i +  9], start[i + 10], start[i + 11],
-                    start[i + 12], start[i + 13], start[i + 14], start[i + 15],
-                    printable_char(start[i +  0]), printable_char(start[i +  1]),
-                    printable_char(start[i +  2]), printable_char(start[i +  3]),
-                    printable_char(start[i +  4]), printable_char(start[i +  5]),
-                    printable_char(start[i +  6]), printable_char(start[i +  7]),
-                    printable_char(start[i +  8]), printable_char(start[i +  9]),
-                    printable_char(start[i + 10]), printable_char(start[i + 11]),
-                    printable_char(start[i + 12]), printable_char(start[i + 13]),
-                    printable_char(start[i + 14]), printable_char(start[i + 15]));
-
+                    (start[i]>>56)&0x4, (start[i]>>48)&0x4, (start[i]>>40)&0x4, (start[i]>>32)&0x4,
+                    (start[i]>>24)&0x4, (start[i]>>16)&0x4, (start[i]>>8)&0x4, (start[i])&0x4,
+                    (start[i + 1]>>56)&0x4, (start[i + 1]>>48)&0x4, (start[i + 1]>>40)&0x4, (start[i + 1]>>32)&0x4,
+                    (start[i + 1]>>24)&0x4, (start[i + 1]>>16)&0x4, (start[i + 1]>>8)&0x4, (start[i + 1])&0x4,
+                    printable_char((start[i]>>56)&0x4), printable_char((start[i]>>48)&0x4),
+                    printable_char((start[i]>>40)&0x4), printable_char((start[i]>>32)&0x4),
+                    printable_char((start[i]>>24)&0x4), printable_char((start[i]>>16)&0x4),
+                    printable_char((start[i]>>8)&0x4), printable_char((start[i])&0x4),
+                    printable_char((start[i + 1]>>56)&0x4), printable_char((start[i + 1]>>48)&0x4),
+                    printable_char((start[i + 1]>>40)&0x4), printable_char((start[i + 1]>>32)&0x4),
+                    printable_char((start[i + 1]>>24)&0x4), printable_char((start[i + 1]>>16)&0x4),
+                    printable_char((start[i + 1]>>8)&0x4), printable_char((start[i + 1])&0x4));
   }
   //fprintf(f, "%08x\n", (int32_t) size);
   printf("%08x\n", (int32_t) size);
