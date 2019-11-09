@@ -32,14 +32,14 @@ void mul(int *des, int *reg1, int *reg2);
 void orr(int *des, int *reg1, int *reg2);
 void orrI(int *des, int *reg1, int val);
 void smulh(int *des, int *reg1, int *reg2); //????
-void ldur(int *des, int *reg1, u_int8_t *memory, int offset);
-void ldurB(int *des, int *reg1, u_int8_t *memory, int offset);
-void ldurH(int *des, int *reg1, u_int8_t *memory, int offset);
-void ldurSW(int *des, int *reg1, u_int8_t *memory, int offset);
-void stur(int *des, u_int8_t *memory, int *reg, int offset);
-void sturB(int *des, u_int8_t *memory, int *reg, int offset);
-void sturH(int *des, u_int8_t *memory, int *reg, int offset);
-void sturW(int *des, u_int8_t *memory, int *reg, int offset);
+void ldur(int *des, int *reg1, u_int64_t *memory, int offset);
+void ldurB(int *des, int *reg1, u_int64_t *memory, int offset);
+void ldurH(int *des, int *reg1, u_int64_t *memory, int offset);
+void ldurSW(int *des, int *reg1, u_int64_t *memory, int offset);
+void stur(int *des, u_int64_t *memory, int *reg, int offset);
+void sturB(int *des, u_int64_t *memory, int *reg, int offset);
+void sturH(int *des, u_int64_t *memory, int *reg, int offset);
+void sturW(int *des, u_int64_t *memory, int *reg, int offset);
 void lsl(int *des, int *reg1, int offset);
 void lsr(int *des, int *reg1, int offset);
 void umulh(int *des, int *reg1, int *reg2); //???????
@@ -70,25 +70,25 @@ char printable_char(uint8_t c);
 // }
 
 
-void add(int des, int reg1, int reg2, u_int32_t *regArr)
+void add(int des, int reg1, int reg2, u_int64_t *regArr)
 {
     //*des = *reg1 + *reg2;
     regArr[des] = regArr[reg1] + regArr[reg2];
 }
 
-void addI(int des, int reg1, int val, u_int32_t *regArr)
+void addI(int des, int reg1, int val, u_int64_t *regArr)
 {
     //*des = *reg1 + val;
     regArr[des] = regArr[reg1] + val;
 }
 
-void and(int des, int reg1, int reg2, u_int32_t *regArr)
+void and(int des, int reg1, int reg2, u_int64_t *regArr)
 {
     //*des = *reg1 & *reg2;
     regArr[des] = regArr[reg1] & regArr[reg2];
 }
 
-void andI(int des, int reg1, int val, u_int32_t *regArr)
+void andI(int des, int reg1, int val, u_int64_t *regArr)
 {
     //*des = *reg1 & val;
     regArr[des] = regArr[reg1] & val;
@@ -238,7 +238,7 @@ void hexdump(int8_t *start, size_t size) //displays contents of registers, memor
   printf("%08x\n", (int32_t) size);
 }
 
-void dump(u_int32_t *regArr, u_int32_t *memory, u_int32_t *stack)
+void dump(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack)
 {
     printf("%s\n", "Registers: ");
     for(int i = 0; i < 32; i ++)
@@ -285,14 +285,14 @@ void dump(u_int32_t *regArr, u_int32_t *memory, u_int32_t *stack)
     hexdump(memory, 4096);
 }
 
-void eor(int des, int reg1, int reg2, u_int32_t *regArr)
+void eor(int des, int reg1, int reg2, u_int64_t *regArr)
 {
     //*des = ~(*reg1 & *reg2) & ~(~(*reg1) & ~(*reg2));
     //*des = *reg1 ^ *reg2;
     regArr[des] = regArr[reg1] ^ regArr[reg2];
 }
 
-void eorI(int des, int reg1, int val, u_int32_t *regArr)
+void eorI(int des, int reg1, int val, u_int64_t *regArr)
 {
     //*des = ~(*reg1 & val) & ~(~(*reg1) & ~(val));
     //*des = *reg1 ^ val;
@@ -300,13 +300,13 @@ void eorI(int des, int reg1, int val, u_int32_t *regArr)
 }
 
 
-void halt(u_int32_t *regArr, u_int32_t *regArr, u_int32_t *memory, u_int32_t *stack)
+void halt(u_int64_t *regArr, u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack)
 {
     dump(regArr, memory, stack);
     exit(0); //terminates
 }
 
-void ldur(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
+void ldur(int des, int reg1, u_int64_t *memory, int offset, u_int64_t *regArr)
 {
     int val = offset / 8; //divides offset by 8
     //*des = memory[val + *reg1]; //loads into des register from the memory array with specified value
@@ -314,7 +314,7 @@ void ldur(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
 }
 
 
-void ldurB(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
+void ldurB(int des, int reg1, u_int64_t *memory, int offset, u_int64_t *regArr)
 {
     int val = offset / 8; //divides offset by 8
     //*des = memory[val + *reg1] & 0x1; //????
@@ -322,7 +322,7 @@ void ldurB(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
 }
 
 
-void ldurH(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
+void ldurH(int des, int reg1, u_int64_t *memory, int offset, u_int64_t *regArr)
 {
     int val = offset / 8; //divides offset by 8
     //*des = memory[val + *reg1] & 0xFFFF; //half word representation
@@ -330,14 +330,14 @@ void ldurH(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
 }
 
 
-void ldurSW(int des, int reg1, u_int8_t *memory, int offset, u_int32_t *regArr)
+void ldurSW(int des, int reg1, u_int64_t *memory, int offset, u_int64_t *regArr)
 {
     int val = offset / 8; //divides offset by 8
     //*des = memory[val + *reg1] & 0xFFFFFFFF; //in theory, word representation, if a half word --> 0xFFFF a word --> 0xFFFFFFFF
     regArr[des] = memory[val + reg1] & 0xFFFFFFFF;
 }
 
-void lsl(int des, int reg1, int offset, u_int32_t *regArr)
+void lsl(int des, int reg1, int offset, u_int64_t *regArr)
 {
   // does the offset need to be divded by 8??
   //int val = offset / 8;
@@ -345,25 +345,25 @@ void lsl(int des, int reg1, int offset, u_int32_t *regArr)
   regArr[des] = regArr[reg1] << offset;
 }
 
-void lsr(int des, int reg1, int offset, u_int32_t *regArr)
+void lsr(int des, int reg1, int offset, u_int64_t *regArr)
 {
     //*des = *reg1 >> offset;
     regArr[des] = regArr[reg1] >> offset;
 }
 
-void mul(int des, int reg1, int reg2, u_int32_t *regArr)
+void mul(int des, int reg1, int reg2, u_int64_t *regArr)
 {
     //*des = (*reg1) * (*reg2);
     regArr[des] = regArr[reg1]*regArr[reg2];
 }
 
-void orr(int des, int reg1, int reg2, u_int32_t *regArr)
+void orr(int des, int reg1, int reg2, u_int64_t *regArr)
 {
     //*des = *reg1 | *reg2;
     regArr[des] = regArr[reg1] | regArr[reg2];
 }
 
-void orrI(int des, int reg1, int val, u_int32_t *regArr)
+void orrI(int des, int reg1, int val, u_int64_t *regArr)
 {
     //*des = *reg1 | val;
     regArr[des] = regArr[reg1] | val;
@@ -374,27 +374,27 @@ void prnl()
     printf("\n");
 }
 
-void prnt(int reg, u_int32_t *regArr)
+void prnt(int reg, u_int64_t *regArr)
 {
     printf("Decimal: %d\nHex: %x\n", regArr[reg], regArr[reg]);
 }
 
 
-void sdiv(int des, int reg1, int reg2, u_int32_t *regArr) //??
+void sdiv(int des, int reg1, int reg2, u_int64_t *regArr) //??
 {
     //*des = *reg1 / *reg2;
     regArr[des] = regArr[reg1] / regArr[reg2];
 }
 
 //DO SMULH
-void smulh(int des, int reg1, int reg2, u_int32_t *regArr) //???
+void smulh(int des, int reg1, int reg2, u_int64_t *regArr) //???
 {
     //*des = (*reg1) * (*reg2);
     regArr[des] = regArr[reg1] * regArr[reg2];
 }
 
 
-void stur(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
+void stur(int des, u_int64_t *memory, int reg, int offset, u_int64_t *regArr)
 {
     int val = offset / 8;
     //memory[*reg + val] = *des;
@@ -402,7 +402,7 @@ void stur(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
 }
 
 
-void sturB(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
+void sturB(int des, u_int64_t *memory, int reg, int offset, u_int64_t *regArr)
 {
     int val = offset / 8;
     //memory[*reg + val] = *des & 0x1;
@@ -410,7 +410,7 @@ void sturB(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
 }
 
 
-void sturH(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
+void sturH(int des, u_int64_t *memory, int reg, int offset, u_int64_t *regArr)
 {
     int val = offset / 8;
     //memory[*reg + val] = *des & 0xFFFF;
@@ -418,7 +418,7 @@ void sturH(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
 }
 
 
-void sturW(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
+void sturW(int des, u_int64_t *memory, int reg, int offset, u_int64_t *regArr)
 {
     int val = offset / 8;
     //memory[*reg + val] = *des & 0xFFFFFFFF;
@@ -426,13 +426,13 @@ void sturW(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr)
 }
 
 
-void sub(int des, int reg1, int reg2, u_int32_t *regArr)
+void sub(int des, int reg1, int reg2, u_int64_t *regArr)
 {
     //*des = *reg1 - *reg2;
     regArr[des] = regArr[reg1] - regArr[reg2];
 }
 
-void subI(int des, int reg1, int val, u_int32_t *regArr)
+void subI(int des, int reg1, int val, u_int64_t *regArr)
 {
     //*des = *reg1 - val;
     regArr[des] = regArr[reg1] - val;
@@ -442,14 +442,14 @@ void subI(int des, int reg1, int val, u_int32_t *regArr)
 
 //SUBS - Flag
 
-void udiv(int des, int reg1, int reg2, u_int32_t *regArr) //??
+void udiv(int des, int reg1, int reg2, u_int64_t *regArr) //??
 {
     //*des = *reg1 / *reg2;
     regArr[des] = regArr[reg1]/regArr[reg2];
 }
 
 //DO UMULH
-void umulh(int des, int reg1, int reg2, u_int32_t *regArr) //???
+void umulh(int des, int reg1, int reg2, u_int64_t *regArr) //???
 {
     //*des = (*reg1) * (*reg2);
     regArr[des] = regArr[reg1] * regArr[reg2];
