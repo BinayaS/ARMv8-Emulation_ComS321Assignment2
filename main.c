@@ -384,7 +384,7 @@ void functionCaller() {
 
       //HALT
       case 2047:
-        halt();
+        halt(regArr);
       break;
 
     }
