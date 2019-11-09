@@ -194,7 +194,8 @@ void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of regis
 {
   size_t i;
 
-  for (i = 0; i < size - (size % 2); i += 2)
+  //for (i = 0; i < size - (size % 2); i += 2)
+  for(i = 0; i < size; i++)
   {
 	  /*
      fprintf(f,
@@ -217,7 +218,7 @@ void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of regis
              printable_char(start[i + 14]), printable_char(start[i + 15]));
 
     */
-    printf(
+    /*printf(
                     "%08x "
                     " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
                     " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
@@ -235,7 +236,8 @@ void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of regis
                     printable_char((start[i + 1]>>40)&0x4), printable_char((start[i + 1]>>32)&0x4),
                     printable_char((start[i + 1]>>24)&0x4), printable_char((start[i + 1]>>16)&0x4),
                     printable_char((start[i + 1]>>8)&0x4), printable_char((start[i + 1])&0x4));
-  }
+  }*/
+  print("Mem at index %d is %d\n", i, start[i]);
   //fprintf(f, "%08x\n", (int32_t) size);
   printf("%08x\n", (int32_t) size*16);
 }
