@@ -65,8 +65,9 @@ struct Data {
 
 struct Data instructionData[MAX_INSTRUCTION_SIZE];
 int instructionArray[MAX_INSTRUCTION_SIZE];
-u_int32_t regArr[32];
-u_int8_t memory[4096];
+u_int64_t regArr[32];
+u_int64_t memory[512];
+u_int64_t stack[64];
 int counter = 0;
 
 void decode(int a, int i) {
@@ -400,7 +401,7 @@ int main(int argc, char const *argv[])
   int stackSize = 512;
 
   //TODO???????
-  u_int8_t stack[512];
+  //u_int8_t stack[512];
 
 
   //parse command line arguments if there are two or more arguments
