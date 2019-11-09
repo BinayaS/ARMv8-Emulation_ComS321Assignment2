@@ -190,12 +190,13 @@ char printable_char(uint8_t c)
   return isprint(c) ? c : '.';
 }
 
-void hexdump(FILE *f, int8_t *start, size_t size) //displays contents of registers, memory, and disassembled program
+void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of registers, memory, and disassembled program
 {
   size_t i;
 
   for (i = 0; i < size - (size % 16); i += 16)
   {
+	  /*
      fprintf(f,
              "%08x "
              " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
@@ -215,7 +216,7 @@ void hexdump(FILE *f, int8_t *start, size_t size) //displays contents of registe
              printable_char(start[i + 12]), printable_char(start[i + 13]),
              printable_char(start[i + 14]), printable_char(start[i + 15]));
 
-     /*
+    */
     printf(
                     "%08x "
                     " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
@@ -234,10 +235,10 @@ void hexdump(FILE *f, int8_t *start, size_t size) //displays contents of registe
                     printable_char(start[i + 10]), printable_char(start[i + 11]),
                     printable_char(start[i + 12]), printable_char(start[i + 13]),
                     printable_char(start[i + 14]), printable_char(start[i + 15]));
-  */		    
+ 		    
   }
-  fprintf(f, "%08x\n", (int32_t) size);
-  //printf("%08x\n", (int32_t) size);
+  //fprintf(f, "%08x\n", (int32_t) size);
+  printf("%08x\n", (int32_t) size);
 }
 
 void dump(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack, FILE *f)
