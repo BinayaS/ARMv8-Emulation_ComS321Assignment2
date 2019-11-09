@@ -238,7 +238,7 @@ void hexdump(int8_t *start, size_t size) //displays contents of registers, memor
   printf("%08x\n", (int32_t) size);
 }
 
-void dump(u_int32_t *regArr)
+void dump(u_int32_t *regArr, u_int32_t *memory, u_int32_t *stack)
 {
     printf("%s\n", "Registers: ");
     for(int i = 0; i < 32; i ++)
@@ -278,11 +278,11 @@ void dump(u_int32_t *regArr)
     prnl();
     //SP & FP - initialized to the size of the stack
     printf("%s\n", "Stack: ");
-    hexdump(&stack[0], 512);
+    hexdump(stack, 512);
     prnl();
     prnl();
     printf("%s\n", "Main Memory: ");
-    hexdump(&memory[0], 4096);
+    hexdump(memory, 4096);
 }
 
 void eor(int des, int reg1, int reg2, u_int32_t *regArr)
@@ -300,9 +300,9 @@ void eorI(int des, int reg1, int val, u_int32_t *regArr)
 }
 
 
-void halt(u_int32_t *regArr)
+void halt(u_int32_t *regArr, u_int32_t *regArr, u_int32_t *memory, u_int32_t *stack)
 {
-    dump(regArr);
+    dump(regArr, memory, stack);
     exit(0); //terminates
 }
 

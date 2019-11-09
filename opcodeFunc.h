@@ -33,8 +33,8 @@ void sturW(int des, u_int8_t *memory, int reg, int offset, u_int32_t *regArr);
 void lsl(int des, int reg1, int offset, u_int32_t *regArr);
 void lsr(int des, int reg1, int offset, u_int32_t *regArr);
 void umulh(int des, int reg1, int reg2, u_int32_t *regArr);
-void dump(u_int32_t *regArr);
-void halt(u_int32_t *regArr);
+void dump(u_int32_t *regArr, u_int32_t *memory, u_int32_t *stack);
+void halt(u_int32_t *regArr, u_int32_t *memory, u_int32_t *stack);
 void hexdump(int8_t *start, size_t size);
 char printable_char(u_int8_t c);
 
