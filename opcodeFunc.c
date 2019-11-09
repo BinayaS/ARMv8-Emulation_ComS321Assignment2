@@ -190,31 +190,32 @@ char printable_char(uint8_t c)
   return isprint(c) ? c : '.';
 }
 
-void hexdump(int8_t *start, size_t size) //displays contents of registers, memory, and disassembled program
+void hexdump(FILE *f, int8_t *start, size_t size) //displays contents of registers, memory, and disassembled program
 {
   size_t i;
 
   for (i = 0; i < size - (size % 16); i += 16)
   {
-    // fprintf(f,
-    //         "%08x "
-    //         " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
-    //         " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
-    //         " |%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c|\n",
-    //         (int32_t) i,
-    //         start[i +  0], start[i +  1], start[i +  2], start[i +  3],
-    //         start[i +  4], start[i +  5], start[i +  6], start[i +  7],
-    //         start[i +  8], start[i +  9], start[i + 10], start[i + 11],
-    //         start[i + 12], start[i + 13], start[i + 14], start[i + 15],
-    //         printable_char(start[i +  0]), printable_char(start[i +  1]),
-    //         printable_char(start[i +  2]), printable_char(start[i +  3]),
-    //         printable_char(start[i +  4]), printable_char(start[i +  5]),
-    //         printable_char(start[i +  6]), printable_char(start[i +  7]),
-    //         printable_char(start[i +  8]), printable_char(start[i +  9]),
-    //         printable_char(start[i + 10]), printable_char(start[i + 11]),
-    //         printable_char(start[i + 12]), printable_char(start[i + 13]),
-    //         printable_char(start[i + 14]), printable_char(start[i + 15]));
+     fprintf(f,
+             "%08x "
+             " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
+             " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
+             " |%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c|\n",
+             (int32_t) i,
+             start[i +  0], start[i +  1], start[i +  2], start[i +  3],
+             start[i +  4], start[i +  5], start[i +  6], start[i +  7],
+             start[i +  8], start[i +  9], start[i + 10], start[i + 11],
+             start[i + 12], start[i + 13], start[i + 14], start[i + 15],
+             printable_char(start[i +  0]), printable_char(start[i +  1]),
+             printable_char(start[i +  2]), printable_char(start[i +  3]),
+             printable_char(start[i +  4]), printable_char(start[i +  5]),
+             printable_char(start[i +  6]), printable_char(start[i +  7]),
+             printable_char(start[i +  8]), printable_char(start[i +  9]),
+             printable_char(start[i + 10]), printable_char(start[i + 11]),
+             printable_char(start[i + 12]), printable_char(start[i + 13]),
+             printable_char(start[i + 14]), printable_char(start[i + 15]));
 
+     /*
     printf(
                     "%08x "
                     " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
@@ -233,12 +234,13 @@ void hexdump(int8_t *start, size_t size) //displays contents of registers, memor
                     printable_char(start[i + 10]), printable_char(start[i + 11]),
                     printable_char(start[i + 12]), printable_char(start[i + 13]),
                     printable_char(start[i + 14]), printable_char(start[i + 15]));
+  */		    
   }
-  //fprintf(f, "%08x\n", (int32_t) size);
-  printf("%08x\n", (int32_t) size);
+  fprintf(f, "%08x\n", (int32_t) size);
+  //printf("%08x\n", (int32_t) size);
 }
 
-void dump(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack)
+void dump(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack, FILE *f)
 {
     printf("%s\n", "Registers: ");
     for(int i = 0; i < 32; i ++)
@@ -278,11 +280,11 @@ void dump(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack)
     prnl();
     //SP & FP - initialized to the size of the stack
     printf("%s\n", "Stack: ");
-    hexdump(stack, 512);
+    hexdump(f, stack, 512);
     prnl();
     prnl();
     printf("%s\n", "Main Memory: ");
-    hexdump(memory, 4096);
+    hexdump(f, memory, 4096);
 }
 
 void eor(int des, int reg1, int reg2, u_int64_t *regArr)
@@ -300,9 +302,9 @@ void eorI(int des, int reg1, int val, u_int64_t *regArr)
 }
 
 
-void halt(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack)
+void halt(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack, FILE *f)
 {
-    dump(regArr, memory, stack);
+    dump(regArr, memory, stack, f);
     exit(0); //terminates
 }
 

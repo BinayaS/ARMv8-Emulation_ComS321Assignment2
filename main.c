@@ -70,6 +70,8 @@ u_int64_t memory[512];
 u_int64_t stack[64];
 int counter = 0;
 
+FILE *file;
+
 void decode(int a, int i) {
 
   int shiftAmount = 6;
@@ -380,12 +382,12 @@ void functionCaller() {
       case 2046:
         //TODO
         //how would it access memory & stack to dump??
-        dump(regArr, memory, stack);
+        dump(regArr, memory, stack, file);
       break;
 
       //HALT
       case 2047:
-        halt(regArr, memory, stack);
+        halt(regArr, memory, stack, file);
       break;
 
     }
@@ -434,7 +436,7 @@ int main(int argc, char const *argv[])
   }
 
   //read from file and put all instructions into instructionArray
-  counter = readFile(argc, argv, instructionArray);
+  counter = readFile(argc, argv, instructionArray, file);
 
   //for visual purposes print out the instructions in hex
   for(int i = 0; i < counter; i++) {

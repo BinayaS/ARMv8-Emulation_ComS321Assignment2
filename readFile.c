@@ -2,10 +2,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-int readFile(int argc, char const *argv[], int instructionArray[]) {
+int readFile(int argc, char const *argv[], int instructionArray[], FILE *file) {
     int c;
     int counter = 0;
-    FILE *file = fopen(argv[1], "rb");
+    file = fopen(argv[1], "rb");
     
     if(file == 0) {
         
