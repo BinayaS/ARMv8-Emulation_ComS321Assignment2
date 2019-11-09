@@ -402,7 +402,8 @@ void stur(int des, u_int64_t *memory, int reg, int offset, u_int64_t *regArr)
 {
     int val = offset / 8;
     //memory[*reg + val] = *des;
-    memory[regArr[reg] + val] = regArr[des];
+    //memory[regArr[reg] + val] = regArr[des];
+    memory[regArr[reg]] = regArr[des];
 }
 
 
