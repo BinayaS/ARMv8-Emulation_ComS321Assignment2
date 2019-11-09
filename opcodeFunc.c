@@ -300,7 +300,7 @@ void eorI(int des, int reg1, int val, u_int64_t *regArr)
 }
 
 
-void halt(u_int64_t *regArr, u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack)
+void halt(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack)
 {
     dump(regArr, memory, stack);
     exit(0); //terminates
