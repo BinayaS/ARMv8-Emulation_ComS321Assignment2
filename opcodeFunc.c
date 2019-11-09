@@ -218,25 +218,25 @@ void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of regis
              printable_char(start[i + 14]), printable_char(start[i + 15]));
 
     */
-    /*printf(
+    printf(
                     "%08x "
                     " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
                     " %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
                     " |%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c|\n",
                     (int32_t) i*8,
-                    (start[i]>>56)&0x4, (start[i]>>48)&0x4, (start[i]>>40)&0x4, (start[i]>>32)&0x4,
-                    (start[i]>>24)&0x4, (start[i]>>16)&0x4, (start[i]>>8)&0x4, (start[i])&0x4,
-                    (start[i + 1]>>56)&0x4, (start[i + 1]>>48)&0x4, (start[i + 1]>>40)&0x4, (start[i + 1]>>32)&0x4,
-                    (start[i + 1]>>24)&0x4, (start[i + 1]>>16)&0x4, (start[i + 1]>>8)&0x4, (start[i + 1])&0x4,
-                    printable_char((start[i]>>56)&0x4), printable_char((start[i]>>48)&0x4),
-                    printable_char((start[i]>>40)&0x4), printable_char((start[i]>>32)&0x4),
-                    printable_char((start[i]>>24)&0x4), printable_char((start[i]>>16)&0x4),
-                    printable_char((start[i]>>8)&0x4), printable_char((start[i])&0x4),
-                    printable_char((start[i + 1]>>56)&0x4), printable_char((start[i + 1]>>48)&0x4),
-                    printable_char((start[i + 1]>>40)&0x4), printable_char((start[i + 1]>>32)&0x4),
-                    printable_char((start[i + 1]>>24)&0x4), printable_char((start[i + 1]>>16)&0x4),
-                    printable_char((start[i + 1]>>8)&0x4), printable_char((start[i + 1])&0x4));
-  }*/
+                    (start[i]>>56)&0xf, (start[i]>>48)&0xf, (start[i]>>40)&0xf, (start[i]>>32)&0xf,
+                    (start[i]>>24)&0xf, (start[i]>>16)&0xf, (start[i]>>8)&0xf, (start[i])&0xf,
+                    (start[i + 1]>>56)&0xf, (start[i + 1]>>48)&0xf, (start[i + 1]>>40)&0xf, (start[i + 1]>>32)&0xf,
+                    (start[i + 1]>>24)&0xf, (start[i + 1]>>16)&0xf, (start[i + 1]>>8)&0xf, (start[i + 1])&0xf,
+                    printable_char((start[i]>>56)&0xf), printable_char((start[i]>>48)&0xf),
+                    printable_char((start[i]>>40)&0xf), printable_char((start[i]>>32)&0xf),
+                    printable_char((start[i]>>24)&0xf), printable_char((start[i]>>16)&0xf),
+                    printable_char((start[i]>>8)&0xf), printable_char((start[i])&0xf),
+                    printable_char((start[i + 1]>>56)&0xf), printable_char((start[i + 1]>>48)&0xf),
+                    printable_char((start[i + 1]>>40)&0xf), printable_char((start[i + 1]>>32)&0xf),
+                    printable_char((start[i + 1]>>24)&0xf), printable_char((start[i + 1]>>16)&0xf),
+                    printable_char((start[i + 1]>>8)&0xf), printable_char((start[i + 1])&0xf));
+  }
   print("Mem at index %d is %d\n", i, start[i]);
   //fprintf(f, "%08x\n", (int32_t) size);
   printf("%08x\n", (int32_t) size*16);
