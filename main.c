@@ -52,7 +52,7 @@ OpPair opcodeTable[] = {
    {1984, STUR, D},
    {1986, LDUR, D},
    {2044, PRNL, JS},
-   {1021, PRNT, JS},
+   {1021, PRNT, R},
    {2046, DUMP, JS},
    {2047, HALT, JS} //End 11 bit opcodes
 };
