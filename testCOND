@@ -1,7 +1,32 @@
-ADDI X0, X0, #3
+ADDI X0, X0, #1
 SUBIS X1, X0, #1
 B.EQ oneEQone
 ADDI X0, X0, #5
+ADDI X0, X0, #5
 oneEQone:
+ADDI X0, X0, #1
+SUBS X1, X2, X0
+B.NE notEqual
+ADDI X0, X0, #5
+ADDI X0, X0, #5
+notEqual:
+ADDI X0, X0, #1
+SUBIS X1, X0, #5
+B.HS gtHS
+ADDI X0, X0, #5
+ADDI X0, X0, #5
+gtHS:
+ADDI X0, X0, #1
+SUBIS X1, X0, #4
+B.HS etHS
+ADDI X0, X0, #5
+ADDI X0, X0, #5
+etHS:
+ADDI X0, X0, #1
+SUBIS X1, X0, #6
+B.LO lessThan
+ADDI X0, X0, #5
+ADDI X0, X0, #5
+lessThan:
 ADDI X0, X0, #1
 DUMP
