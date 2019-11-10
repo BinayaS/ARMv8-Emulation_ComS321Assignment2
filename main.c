@@ -215,7 +215,7 @@ void decode(int a, int i) {
 void functionCaller() {
 
   unsigned int condFlag[16];
-
+  
   enum condFlagEnum {
     EQ,
     NE,
@@ -248,7 +248,7 @@ void functionCaller() {
       case 37:
         //set BR register to have our current address
         regArr[30] = (u_int64_t)i;
-
+        
         //branch
         i += instructionData[i].braddr - 1;
       break;
@@ -266,7 +266,7 @@ void functionCaller() {
           i += instructionData[i].condbraddr - 1;
         }
       break;
-
+      
       //CBNZ
       case 181:
         if(instructionData[i].rd != 0) {
@@ -393,7 +393,7 @@ void functionCaller() {
       //SUB
       case 1624:
         sub(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
-
+        
       break;
 
       //SUBS
@@ -417,7 +417,7 @@ void functionCaller() {
       break;
 
       //PRNT
-      case 2045:
+      case 1021:
         prnt(instructionData[i].rd, regArr);
       break;
 
