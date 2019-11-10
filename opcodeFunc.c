@@ -96,12 +96,7 @@ void andI(int des, int reg1, int val, u_int64_t *regArr)
 
 
 int Bcond(int reg, u_int64_t *regArr, unsigned int *condFlag) {
-<<<<<<< HEAD
 
-=======
-  //DEBUG PRINT
-  printf("condition: %d, condValue: %d\n", reg, condFlag[reg]);
->>>>>>> 3d4b32a1e1e7db6f0ba5e321f8d456496763ef38
   if(condFlag[reg] == 1) {
     return 1;
   }
@@ -274,12 +269,16 @@ void lsl(int des, int reg1, int offset, u_int64_t *regArr)
   //int val = offset / 8;
   //*des = *reg1 << offset;
   regArr[des] = regArr[reg1] << offset;
+
+  printf("Destination Register: %d\n Offset Value: %d\n Register: %d\n", regArr[des], offset, regArr[reg1]);
 }
 
 void lsr(int des, int reg1, int offset, u_int64_t *regArr)
 {
     //*des = *reg1 >> offset;
     regArr[des] = regArr[reg1] >> offset;
+
+    printf("Destination Register: %d\n Offset Value: %d\n Register: %d\n", regArr[des], offset, regArr[reg1]);
 }
 
 void mul(int des, int reg1, int reg2, u_int64_t *regArr)
@@ -386,15 +385,6 @@ void subs(int des, int reg1, int reg2, u_int64_t *regArr, unsigned int *condFlag
 {
   regArr[des] = regArr[reg1] - regArr[reg2];
   setConditionals(des, regArr, condFlag);
-}
-
-
-void cbz() {
-
-}
-
-void cbnz() {
-
 }
 
 
