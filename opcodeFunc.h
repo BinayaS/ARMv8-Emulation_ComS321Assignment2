@@ -13,11 +13,10 @@ void andI(int des, int reg1, int val, u_int64_t *regArr);
 void sub(int des, int reg1, int reg2, u_int64_t *regArr);
 void subI(int des, int reg1, int val, u_int64_t *regArr);
 int Bcond(int reg, u_int64_t *regArr, unsigned int *condFlag);
-//TODO?
 void subs(int des, int reg1, int reg2, u_int64_t *regArr, unsigned int *condFlag);
-//TODO?
 void subis(int des, int reg1, int val, u_int64_t *regArr, unsigned int *condFlag);
-
+void cbz();
+void cbnz();
 void udiv(int des, int reg1, int reg2, u_int64_t *regArr);
 void sdiv(int des, int reg1, int reg2, u_int64_t *regArr);
 void prnl();
