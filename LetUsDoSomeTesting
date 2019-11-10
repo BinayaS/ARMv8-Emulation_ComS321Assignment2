@@ -10,9 +10,15 @@ ADDI X6, X0, #6
 ADDI X7, X0, #7
 ADDI X8, X0, #8
 
-Loop:
+CBZ X0, Loop
 
 STUR X8, [X0, #0]
+
+Loop:
+
+CBNZ X1, End
+
+STUR X9, [x1, #0]
 
 End:
 
