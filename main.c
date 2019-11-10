@@ -213,6 +213,26 @@ void decode(int a, int i) {
 }
 
 void functionCaller() {
+
+  unsigned int condFlag[16];
+  
+  enum condFlagEnum {
+    EQ,
+    NE,
+    HS,
+    LO,
+    MI,
+    PL,
+    VS,
+    VC,
+    HI,
+    LS,
+    GE,
+    LT,
+    GT,
+    LE
+  };
+
   int i;
   unsigned int a;
   for(i = 0; i < counter; i++) {
@@ -229,6 +249,11 @@ void functionCaller() {
 
       //BCOND
       case 84:
+        
+        if(Bcond(instructionData[i].rd, regArr, condFlag)) {
+          i += instructionData[i].condbraddr - 1;
+        }
+      
       break;
 
       //CBZ
@@ -262,6 +287,8 @@ void functionCaller() {
 
       //SUBIS
       case 964:
+        //TODO ----------------------------
+        subis(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm, regArr, condFlag);
       break;
 
       //STURB
@@ -352,10 +379,13 @@ void functionCaller() {
       //SUB
       case 1624:
         sub(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
+        
       break;
 
       //SUBS
       case 1880:
+        //TODO ----------------------------
+        subs(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr, condFlag);
       break;
 
       //STUR

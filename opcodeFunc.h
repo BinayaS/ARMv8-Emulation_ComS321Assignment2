@@ -12,6 +12,12 @@ void and(int des, int reg1, int reg2, u_int64_t *regArr);
 void andI(int des, int reg1, int val, u_int64_t *regArr);
 void sub(int des, int reg1, int reg2, u_int64_t *regArr);
 void subI(int des, int reg1, int val, u_int64_t *regArr);
+int Bcond(int reg, u_int64_t *regArr, unsigned int *condFlag);
+//TODO
+void subs(int des, int reg1, int reg2, u_int64_t *regArr, unsigned int *condFlag);
+//TODO
+void subis(int des, int reg1, int val, u_int64_t *regArr, unsigned int *condFlag);
+
 void udiv(int des, int reg1, int reg2, u_int64_t *regArr);
 void sdiv(int des, int reg1, int reg2, u_int64_t *regArr);
 void prnl();
@@ -37,6 +43,6 @@ void dump(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack, FILE *f);
 void halt(u_int64_t *regArr, u_int64_t *memory, u_int64_t *stack, FILE *f);
 void hexdump(FILE *f, u_int64_t *start, size_t size);
 char printable_char(u_int8_t c);
-
+void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag);
 
 #endif
