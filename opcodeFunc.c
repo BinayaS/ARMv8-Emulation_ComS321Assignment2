@@ -96,12 +96,7 @@ void andI(int des, int reg1, int val, u_int64_t *regArr)
 
 
 int Bcond(int reg, u_int64_t *regArr, unsigned int *condFlag) {
-<<<<<<< HEAD
 
-=======
-  //DEBUG PRINT
-  printf("condition: %d, condValue: %d\n", reg, condFlag[reg]);
->>>>>>> 3d4b32a1e1e7db6f0ba5e321f8d456496763ef38
   if(condFlag[reg] == 1) {
     return 1;
   }
