@@ -97,7 +97,7 @@ void andI(int des, int reg1, int val, u_int64_t *regArr)
 
 int Bcond(int reg, u_int64_t *regArr, unsigned int *condFlag) {
 
-  if(condFlag[regArr[reg]] == 1) {
+  if(condFlag[reg] == 1) {
     return 1;
   }
   
