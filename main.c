@@ -241,10 +241,20 @@ void functionCaller() {
 
       //BRANCH
       case 5:
+      
+        i += instructionData[i].braddr - 1;
+      
       break;
 
       //BL
       case 37:
+        
+        //set BR register to have our current address
+        regArr[30] = (u_int64_t)i;
+        
+        //branch
+        i += instructionData[i].braddr - 1;
+        
       break;
 
       //BCOND

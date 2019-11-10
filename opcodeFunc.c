@@ -459,14 +459,14 @@ void subI(int des, int reg1, int val, u_int64_t *regArr)
 
 
 
-//TODO SUBIS - Flag
+//TODO? SUBIS - Flag
 void subis(int des, int reg1, int val, u_int64_t *regArr, unsigned int *condFlag) 
 {
   regArr[des] = regArr[reg1] - val;
   setConditionals(des, regArr, condFlag);
 }
 
-//TODO SUBS - Flag
+//TODO? SUBS - Flag
 void subs(int des, int reg1, int reg2, u_int64_t *regArr, unsigned int *condFlag) 
 {
   regArr[des] = regArr[reg1] - regArr[reg2];
