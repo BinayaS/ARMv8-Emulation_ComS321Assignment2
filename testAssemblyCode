@@ -1,6 +1,6 @@
 ADDI X0, X0, #0
-ADDI X1, X1, #8
-ADDI X2, X2, #16
+ADDI X1, X1, #15
+ADDI X2, X2, #160
 STUR X1, [X0, #0]
 STUR X2, [X1, #0]
 B Yolo
