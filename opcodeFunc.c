@@ -388,15 +388,6 @@ void subs(int des, int reg1, int reg2, u_int64_t *regArr, unsigned int *condFlag
 }
 
 
-void cbz() {
-
-}
-
-void cbnz() {
-
-}
-
-
 void udiv(int des, int reg1, int reg2, u_int64_t *regArr) //??
 {
     //*des = *reg1 / *reg2;

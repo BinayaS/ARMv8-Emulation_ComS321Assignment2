@@ -15,3 +15,5 @@ Loop:
 STUR X8, [X0, #0]
 
 End:
+
+DUMP
