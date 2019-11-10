@@ -437,8 +437,6 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //LO
         case 3:
-          //DEBUG PRINT
-          printf("At reg%d, value is %d", des, regArr[des]);
           if((int64_t)regArr[des] < 0) {
             condFlag[i] = 1;
           } else {
