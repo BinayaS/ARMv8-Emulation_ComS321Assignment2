@@ -221,6 +221,7 @@ void functionCaller() {
 
       //BRANCH
       case 5:
+        i+= instructionData[i].braddr - 1;
       break;
 
       //BL
