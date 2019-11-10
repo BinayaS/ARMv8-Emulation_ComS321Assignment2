@@ -213,6 +213,26 @@ void decode(int a, int i) {
 }
 
 void functionCaller() {
+
+  unsigned int condFlag[16];
+
+  enum condFlagEnum {
+    EQ,
+    NE,
+    HS,
+    LO,
+    MI,
+    PL,
+    VS,
+    VC,
+    HI,
+    LS,
+    GE,
+    LT,
+    GT,
+    LE
+  };
+
   int i;
   unsigned int a;
   for(i = 0; i < counter; i++) {
@@ -221,19 +241,37 @@ void functionCaller() {
 
       //BRANCH
       case 5:
-        i+= instructionData[i].braddr - 1;
+        i += instructionData[i].braddr - 1;
       break;
 
       //BL
       case 37:
+        //set BR register to have our current address
+        regArr[30] = (u_int64_t)i;
+
+        //branch
+        i += instructionData[i].braddr - 1;
       break;
 
       //BCOND
       case 84:
+        if(Bcond(instructionData[i].rd, regArr, condFlag)) {
+          i += instructionData[i].condbraddr - 1;
+        }
       break;
 
       //CBZ
       case 180:
+        if(instructionData[i].rd == 0) {
+          i += instructionData[i].condbraddr - 1;
+        }
+      break;
+
+      //CBNZ
+      case 181:
+        if(instructionData[i].rd != 0) {
+          i += instructionData[i].condbraddr - 1;
+        }
       break;
 
       //ADDI
@@ -263,6 +301,7 @@ void functionCaller() {
 
       //SUBIS
       case 964:
+        subis(instructionData[i].rd, instructionData[i].rn, instructionData[i].imm, regArr, condFlag);
       break;
 
       //STURB
@@ -343,6 +382,7 @@ void functionCaller() {
 
       //BR
       case 1712:
+        i += instructionData[i].rd - 1;
       break;
 
       //EOR
@@ -353,10 +393,12 @@ void functionCaller() {
       //SUB
       case 1624:
         sub(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
+
       break;
 
       //SUBS
       case 1880:
+        subs(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr, condFlag);
       break;
 
       //STUR
