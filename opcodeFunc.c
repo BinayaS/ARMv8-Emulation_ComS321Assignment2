@@ -270,15 +270,15 @@ void lsl(int des, int reg1, int offset, u_int64_t *regArr)
   //*des = *reg1 << offset;
   regArr[des] = regArr[reg1] << offset;
 
-  printf("Printing out register %d\n", regArr[des]);
+  printf("Destination Register: %d\n Offset Value: %d\n Register: %d", regArr[des], offset, regArr[reg1]);
 }
 
 void lsr(int des, int reg1, int offset, u_int64_t *regArr)
 {
     //*des = *reg1 >> offset;
     regArr[des] = regArr[reg1] >> offset;
-    
-    printf("Printing out register %d\n", regArr[des]);
+
+    printf("Destination Register: %d\n Offset Value: %d\n Register: %d", regArr[des], offset, regArr[reg1]);
 }
 
 void mul(int des, int reg1, int reg2, u_int64_t *regArr)
