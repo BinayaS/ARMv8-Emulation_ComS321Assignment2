@@ -97,102 +97,12 @@ void andI(int des, int reg1, int val, u_int64_t *regArr)
 
 int Bcond(int reg, u_int64_t *regArr, unsigned int *condFlag) {
 
-  if(condFlag[regArr[reg]] == 1) {
+  if(condFlag[reg] == 1) {
     return 1;
   }
 
   return 0;
 }
-
-// FILE *b(int val, *char file, int *pcReg) //test later
-// {
-//     FILE *f = fopen(*file, "r");
-//     for(int i = 0; i < (32 * val); i ++)
-//     {
-//         fgetc(f);
-//     }
-//     *pcReg = val;
-//     return f;
-//
-// }
-
-//B.cond
-
-// FILE *bl(int val, *char file, int *pcReg, int *blReg)
-// {
-//       FILE *f = fopen(*file, "r");
-//       for(int i = 0; i < (32 * val); i ++)
-//       {
-//           fgetc(f);
-//       }
-//       *blReg = *pcReg + 1;
-//       return f;
-// }
-//
-// FILE *br(*char file, int *reg, int *pcReg)
-// {
-//   FILE *f = fopen(*file, "r");
-//   int val = *reg
-//   for(int i = 0; i < (32 * val); i ++)
-//   {
-//       fgetc(f);
-//   }
-//   *pcReg = val;
-//   return f;
-// }
-//
-// FILE *cbz(*char file, int *reg, int val, int *pcReg)
-// {
-//   FILE *f = fopen(*file, "r");
-//   int currReg = *reg
-//
-//   if(currReg == 0)
-//   {
-//     for(int i = 0; i < (32 * val); i ++)
-//     {
-//         fgetc(f);
-//     }
-//     *pcReg = val;
-//   } else
-//   {
-//       int pc = *pcReg;
-//       for(int i = 0; i < (32 * (pc + 1)); i ++)
-//       {
-//           fgetc(f);
-//       }
-//       *pcReg = pc + 1;
-//   }
-//
-//   return f;
-//
-// }
-//
-// FILE *cbnz(*char file, int *reg, int val, int *pcReg)
-// {
-//   FILE *f = fopen(*file, "r");
-//   int currReg = *reg
-//
-//   if(currReg != 0)
-//   {
-//     for(int i = 0; i < (32 * val); i ++)
-//     {
-//         fgetc(f);
-//     }
-//     *pcReg = val;
-//
-//   } else
-//   {
-//       int pc = *pcReg;
-//       for(int i = 0; i < (32 * (pc + 1)); i ++)
-//       {
-//           fgetc(f);
-//       }
-//       *pcReg = pc + 1;
-//   }
-//
-//   return f;
-//
-// }
 
 //DO DUMP
 char printable_char(uint8_t c)
@@ -396,7 +306,7 @@ void prnl()
 
 void prnt(int reg, u_int64_t *regArr)
 {
-    printf("Decimal: %d\nHex: %x\n", regArr[reg], regArr[reg]);
+    printf("Register: %d \nDecimal: %d \nHex: %x \n", reg, regArr[reg], regArr[reg]);
 }
 
 
@@ -523,7 +433,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //HS
         case 2:
-          if(regArr[des] >= 0) {
+          if((int64_t)regArr[des] >= 0) {
             condFlag[i] = 1;
           } else {
             condFlag[i] = 0;
@@ -532,7 +442,9 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //LO
         case 3:
-          if(regArr[des] < 0) {
+          //DEBUG PRINT
+          printf("At reg%d, value is %d", des, regArr[des]);
+          if((int64_t)regArr[des] < 0) {
             condFlag[i] = 1;
           } else {
             condFlag[i] = 0;
@@ -541,7 +453,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //MI
         case 4:
-          if(regArr[des] < 0) {
+          if((int64_t)regArr[des] < 0) {
             condFlag[i] = 1;
           } else {
             condFlag[i] = 0;
@@ -550,7 +462,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //PL
         case 5:
-          if(regArr[des] >= 0) {
+          if((int64_t)regArr[des] >= 0) {
             condFlag[i] = 1;
           } else {
             condFlag[i] = 0;
@@ -569,7 +481,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //HI
         case 8:
-          if(regArr[des] > 0) {
+          if((int64_t)regArr[des] > 0) {
             condFlag[i] = 1;
           } else {
             condFlag[i] = 0;
@@ -578,7 +490,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //LS
         case 9:
-          if(regArr[des] <= 0) {
+          if((int64_t)regArr[des] <= 0) {
             condFlag[i] = 1;
           } else {
             condFlag[i] = 0;
@@ -587,7 +499,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //GE
         case 10:
-          if(regArr[des] >= 0) {
+          if((int64_t)regArr[des] >= 0) {
             condFlag[i] = 1;
           } else {
             condFlag[i] = 0;
@@ -596,7 +508,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //LT
         case 11:
-          if(regArr[des] < 0) {
+          if((int64_t)regArr[des] < 0) {
             condFlag[i] = 1;
           } else {
             condFlag[i] = 0;
@@ -605,7 +517,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //GT
         case 12:
-          if(regArr[des] > 0) {
+          if((int64_t)regArr[des] > 0) {
             condFlag[i] = 1;
           } else {
             condFlag[i] = 0;
@@ -614,7 +526,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
 
         //LE
         case 13:
-          if(regArr[des] <= 0) {
+          if((int64_t)regArr[des] <= 0) {
             condFlag[i] = 1;
           } else {
             condFlag[i] = 0;
