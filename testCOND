@@ -1,0 +1,7 @@
+ADDI X0, X0, #3
+SUBIS X1, X0, #1
+B.EQ oneEQone
+ADDI X0, X0, #5
+oneEQone:
+ADDI X0, X0, #1
+DUMP
