@@ -100,7 +100,7 @@ int Bcond(int reg, u_int64_t *regArr, unsigned int *condFlag) {
   if(condFlag[regArr[reg]] == 1) {
     return 1;
   }
-  
+
   return 0;
 }
 
@@ -359,12 +359,16 @@ void lsl(int des, int reg1, int offset, u_int64_t *regArr)
   //int val = offset / 8;
   //*des = *reg1 << offset;
   regArr[des] = regArr[reg1] << offset;
+
+  printf("Printing out register %d\n", regArr[des]);
 }
 
 void lsr(int des, int reg1, int offset, u_int64_t *regArr)
 {
     //*des = *reg1 >> offset;
     regArr[des] = regArr[reg1] >> offset;
+    
+    printf("Printing out register %d\n", regArr[des]);
 }
 
 void mul(int des, int reg1, int reg2, u_int64_t *regArr)
@@ -454,20 +458,20 @@ void sub(int des, int reg1, int reg2, u_int64_t *regArr)
 void subI(int des, int reg1, int val, u_int64_t *regArr)
 {
     //*des = *reg1 - val;
-    regArr[des] = regArr[reg1] - val; 
+    regArr[des] = regArr[reg1] - val;
 }
 
 
 
 //TODO? SUBIS - Flag
-void subis(int des, int reg1, int val, u_int64_t *regArr, unsigned int *condFlag) 
+void subis(int des, int reg1, int val, u_int64_t *regArr, unsigned int *condFlag)
 {
   regArr[des] = regArr[reg1] - val;
   setConditionals(des, regArr, condFlag);
 }
 
 //TODO? SUBS - Flag
-void subs(int des, int reg1, int reg2, u_int64_t *regArr, unsigned int *condFlag) 
+void subs(int des, int reg1, int reg2, u_int64_t *regArr, unsigned int *condFlag)
 {
   regArr[des] = regArr[reg1] - regArr[reg2];
   setConditionals(des, regArr, condFlag);
@@ -507,7 +511,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //NE
         case 1:
           if(regArr[des] != 0) {
@@ -516,7 +520,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //HS
         case 2:
           if(regArr[des] >= 0) {
@@ -525,7 +529,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //LO
         case 3:
           if(regArr[des] < 0) {
@@ -534,7 +538,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //MI
         case 4:
           if(regArr[des] < 0) {
@@ -543,7 +547,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //PL
         case 5:
           if(regArr[des] >= 0) {
@@ -552,17 +556,17 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //VS
         case 6:
           condFlag[i] = 0;
         break;
-        
+
         //VC
         case 7:
           condFlag[i] = 0;
         break;
-        
+
         //HI
         case 8:
           if(regArr[des] > 0) {
@@ -571,7 +575,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //LS
         case 9:
           if(regArr[des] <= 0) {
@@ -580,7 +584,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //GE
         case 10:
           if(regArr[des] >= 0) {
@@ -589,7 +593,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //LT
         case 11:
           if(regArr[des] < 0) {
@@ -598,7 +602,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //GT
         case 12:
           if(regArr[des] > 0) {
@@ -607,7 +611,7 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         //LE
         case 13:
           if(regArr[des] <= 0) {
@@ -616,13 +620,13 @@ void setConditionals(int des, u_int64_t *regArr, unsigned int *condFlag) {
             condFlag[i] = 0;
           }
         break;
-        
+
         case 14:
         break;
-        
+
         case 15:
         break;
-        
+
         default:
         break;
       }
