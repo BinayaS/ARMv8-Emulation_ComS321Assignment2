@@ -61,14 +61,17 @@ struct Data {
   int rm, rn, rd, imm, dtaddr, braddr, condbraddr, instructionShift, shamt;
 };
 
-#define MAX_INSTRUCTION_SIZE 1000000
+#define MAX_INSTRUCTION_SIZE 10000000
 
 struct Data instructionData[MAX_INSTRUCTION_SIZE];
+
 int instructionArray[MAX_INSTRUCTION_SIZE];
 u_int64_t regArr[32];
 u_int64_t memory[512];
 u_int64_t stack[64];
 int counter = 0;
+int dataHazardCounter = 0;
+int controlHazardCounter = 0;
 
 FILE *file;
 
@@ -114,8 +117,7 @@ void decode(int a, int i) {
     opcodeIndex = searchTable(a>>shift & mask, opcodeTable);
 
     if(opcodeIndex >= 0){
-      printf("shiftAmount: %d -- %d -- %d",
-              shiftAmount, a>>shift & mask, opcodeTable[opcodeIndex].opname);
+      //printf("shiftAmount: %d -- %d -- %d", shiftAmount, a>>shift & mask, opcodeTable[opcodeIndex].opname);
       instructionData[i].instructionShift = shift;
       switch(opcodeTable[opcodeIndex].opformat) {
 	case R:
@@ -201,6 +203,7 @@ void functionCaller() {
 
   unsigned int condFlag[16];
 
+  /*
   enum condFlagEnum {
     EQ,
     NE,
@@ -217,6 +220,7 @@ void functionCaller() {
     GT,
     LE
   };
+  */
 
   int i;
   unsigned int a;
@@ -436,30 +440,32 @@ int main(int argc, char const *argv[])
 
   //parse command line arguments if there are two or more arguments
   if(argc >= 2) {
-    printf("The arguments supplied are:\n");
+    //printf("The arguments supplied are:\n");
 
     //print out all arguments
+    /*
     for(int i = 1; i < argc; i++) {
         printf("%s\t ", argv[i]);
     }
+    */
 
-    printf("\n");
+    //printf("\n");
 
     //if atleast three arguments set mainMemorySize
     if(argc >= 3) {
       mainMemorySize = atoi(argv[2]);
-      printf("mainMemorySize = %d\n", mainMemorySize);
+      //printf("mainMemorySize = %d\n", mainMemorySize);
     }
 
     //if atleas four arguments set stackSize
     if(argc >= 4) {
       stackSize = atoi(argv[3]);
-      printf("stackSize = %d\n", stackSize);
+      //printf("stackSize = %d\n", stackSize);
     }
 
     //if there is not two or more arguments then print the input format
   } else {
-      printf("<.machine file> [-m <main memory size>] [-s <stack size>]\n");
+      printf("<.machine file> <main memory size> <stack size>\n");
       return 0;
   }
 
@@ -467,21 +473,73 @@ int main(int argc, char const *argv[])
   counter = readFile(argc, argv, instructionArray, file);
 
   //for visual purposes print out the instructions in hex
+  /*
   for(int i = 0; i < counter; i++) {
     printf("%x\n", instructionArray[i]);
   }
+  
 
   printf("-----\n");
-
+  
+  */
   //TODO compare opcode by taking the instruction and shifting right till you have just the beggining and compare it to the decimal version of the op code
   for(int i = 0; i < counter; i++) {
     //unsigned int a = instructionArray[i];
     int a = instructionArray[i];
     decode(a, i);
-
+  }
+  
+  for (int x = 0; x < counter; x++) {
+    instructionData[x].rm = -1;
+    instructionData[x].rn = -1;
+    instructionData[x].rd = -1;
+    instructionData[x].imm = -1;
+    instructionData[x].dtaddr = -1;
+    instructionData[x].braddr = -1;
+    instructionData[x].condbraddr= -1;
+    instructionData[x].instructionShift = -1;
+    instructionData[x].shamt = -1;
   }
 
-  functionCaller();
+  functionCaller(); 
+  
+  int c = 0;
+  
+  for(int i = 0; i < counter; i++) {
+    c = i;
+    while(c < i+4) {
+      c++;
+      if(instructionData[i].rd != -1) {
+        if(instructionData[i].rd == instructionData[c].rm || instructionData[i].rd == instructionData[c].rn) {
+          dataHazardCounter++;
+        }
+      }
+      
+    }
+    
+    c = i;
+    if(instructionArray[i]>>instructionData[i].instructionShift == 180 || 
+       instructionArray[i]>>instructionData[i].instructionShift == 181 || 
+       instructionArray[i]>>instructionData[i].instructionShift == 1712  ) {
+       
+      while(c > i-5) {
+        c++;
+        if(instructionData[i].rd != -1) {
+          if(instructionData[i].rd == instructionData[c].rd || instructionData[i].rd == instructionData[c].rd) {
+            controlHazardCounter++;
+          }
+        }
+      }
+    }
+    
+  }
+  
+  //Print Stats:
+  printf("The number of cycles unpipelined is = %d\n", counter * 5);
+  printf("The number of cycles in a perfect 5-stage pipeline is = %d\n", counter - 1 + 5);
+  printf("The number of cycles in a 5-stage pipeline is = %d\n", dataHazardCounter + counter - 1 + 5);
+  printf("The number of control hazards is = %d\n", controlHazardCounter);
+  
 
   return 0;
 };
