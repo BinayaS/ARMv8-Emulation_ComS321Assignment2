@@ -540,11 +540,28 @@ int main(int argc, char const *argv[])
        instructionArray[i]>>instructionData[i].instructionShift == 181 ||
        instructionArray[i]>>instructionData[i].instructionShift == 1712  ) {
 
-      while(c > i-5) {
+      while(c > i-4 && c > 1) {
         c--;
         if(instructionData[i].rd != -1) {
           if(instructionData[i].rd == instructionData[c].rd || instructionData[i].rd == instructionData[c].rd) {
             controlHazardCounter++;
+            switch(i-c){
+              case 1:
+                extraCycles += 4;
+              break;
+
+              case 2:
+                extraCycles += 3;
+              break;
+
+              case 3:
+                extraCycles += 2;
+              break;
+
+              case 4:
+                extraCycles += 1;
+              break;
+            }
           }
         }
       }
