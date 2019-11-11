@@ -571,10 +571,11 @@ int main(int argc, char const *argv[])
 
   //Print Stats:
   printf("The number of cycles unpipelined is = %d\n", counter * 5);
-  printf("The number of cycles in a perfect 5-stage pipeline is = %d\n", counter - 1 + 5);
-  printf("The number of cycles in a 5-stage pipeline is = %d\n", dataHazardCounter + counter - 1 + 5);
+  //printf("The number of cycles in a perfect 5-stage pipeline is = %d\n", counter - 1 + 5);
+  printf("The number of cycles in a 5-stage pipeline is = %d\n", extraCycles + counter - 1 + 5);
+  printf("The number of data hazards is = %d\n", dataHazardCounter);
   printf("The number of control hazards is = %d\n", controlHazardCounter);
-  printf("The number of cycles with bypassing but no branch prediction = %d\n", (counter - 1 + 5) - (dataHazardCounter + counter - 1 + 5))
+  printf("The number of cycles with bypassing but no branch prediction = %d\n", (counter - 1 + 5) );
 
 
   return 0;
