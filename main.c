@@ -121,7 +121,7 @@ void decode(int a, int i) {
 	case R:
     instructionData[i].rd = a & 0x1F;
     instructionData[i].rn = a>>5 & 0x1F;
-    instructionData[i].shamt = a>>10 & 0x20;
+    instructionData[i].shamt = a>>10 & 0x3f;
     instructionData[i].rm = a>>16 & 0x1f;
     printf(" -- R");
     printf(" -> Rm = %d, Rn = %d, Rd = %d\n", instructionData[i].rm, instructionData[i].rn, instructionData[i].rd);
@@ -215,7 +215,7 @@ void decode(int a, int i) {
 void functionCaller() {
 
   unsigned int condFlag[16];
-  
+
   enum condFlagEnum {
     EQ,
     NE,
@@ -248,7 +248,7 @@ void functionCaller() {
       case 37:
         //set BR register to have our current address
         regArr[30] = (u_int64_t)i;
-        
+
         //branch
         i += instructionData[i].braddr - 1;
       break;
@@ -266,7 +266,7 @@ void functionCaller() {
           i += instructionData[i].condbraddr - 1;
         }
       break;
-      
+
       //CBNZ
       case 181:
         if(instructionData[i].rd != 0) {
@@ -393,7 +393,7 @@ void functionCaller() {
       //SUB
       case 1624:
         sub(instructionData[i].rd, instructionData[i].rn, instructionData[i].rm, regArr);
-        
+
       break;
 
       //SUBS
