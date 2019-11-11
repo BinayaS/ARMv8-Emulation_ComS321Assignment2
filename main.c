@@ -203,8 +203,7 @@ void decode(int a, int i) {
 void functionCaller() {
 
   unsigned int condFlag[16];
-
-  /*
+  
   enum condFlagEnum {
     EQ,
     NE,
@@ -221,7 +220,6 @@ void functionCaller() {
     GT,
     LE
   };
-  */
 
   int i;
   unsigned int a;
@@ -484,12 +482,7 @@ int main(int argc, char const *argv[])
 
   */
   //TODO compare opcode by taking the instruction and shifting right till you have just the beggining and compare it to the decimal version of the op code
-  for(int i = 0; i < counter; i++) {
-    //unsigned int a = instructionArray[i];
-    int a = instructionArray[i];
-    decode(a, i);
-  }
-
+  
   for (int x = 0; x < counter; x++) {
     instructionData[x].rm = -1;
     instructionData[x].rn = -1;
@@ -501,7 +494,13 @@ int main(int argc, char const *argv[])
     instructionData[x].instructionShift = -1;
     instructionData[x].shamt = -1;
   }
-
+  
+  for(int i = 0; i < counter; i++) {
+    //unsigned int a = instructionArray[i];
+    int a = instructionArray[i];
+    decode(a, i);
+  }
+  
   functionCaller();
 
   int c = 0;
@@ -511,7 +510,9 @@ int main(int argc, char const *argv[])
     while(c < i+4 && c < counter - 1) {
       c++;
       if(instructionData[i].rd != -1) {
-        if(instructionData[i].rd == instructionData[c].rm || instructionData[i].rd == instructionData[c].rn) {
+        if(instructionData[i].rd == instructionData[c].rm || 
+        instructionData[i].rd == instructionData[c].rn || 
+        instructionData[i].rd == instructionData[c].rd) {
           dataHazardCounter++;
           switch(c-i){
             case 1:
@@ -570,12 +571,12 @@ int main(int argc, char const *argv[])
   }
 
   //Print Stats:
-  // printf("The number of cycles unpipelined is = %d\n", counter * 5);
-  // //printf("The number of cycles in a perfect 5-stage pipeline is = %d\n", counter - 1 + 5);
-  // printf("The number of cycles in a 5-stage pipeline is = %d\n", extraCycles + counter - 1 + 5);
-  // printf("The number of data hazards is = %d\n", dataHazardCounter);
-  // printf("The number of control hazards is = %d\n", controlHazardCounter);
-  // printf("The number of cycles with bypassing but no branch prediction = %d\n", (counter - 1 + 5) );
+  printf("The number of cycles unpipelined is = %d\n", counter * 5);
+  //printf("The number of cycles in a perfect 5-stage pipeline is = %d\n", counter - 1 + 5);
+  printf("The number of cycles in a 5-stage pipeline is = %d\n", extraCycles + counter - 1 + 5);
+  printf("The number of data hazards is = %d\n", dataHazardCounter);
+  printf("The number of control hazards is = %d\n", controlHazardCounter);
+  printf("The number of cycles with bypassing but no branch prediction = %d\n", (counter - 1 + 5) );
 
 
   return 0;
