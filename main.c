@@ -70,6 +70,7 @@ u_int64_t regArr[32];
 u_int64_t memory[512];
 u_int64_t stack[64];
 int counter = 0;
+int extraCycles = 0;
 int dataHazardCounter = 0;
 int controlHazardCounter = 0;
 
@@ -477,10 +478,10 @@ int main(int argc, char const *argv[])
   for(int i = 0; i < counter; i++) {
     printf("%x\n", instructionArray[i]);
   }
-  
+
 
   printf("-----\n");
-  
+
   */
   //TODO compare opcode by taking the instruction and shifting right till you have just the beggining and compare it to the decimal version of the op code
   for(int i = 0; i < counter; i++) {
@@ -488,7 +489,7 @@ int main(int argc, char const *argv[])
     int a = instructionArray[i];
     decode(a, i);
   }
-  
+
   for (int x = 0; x < counter; x++) {
     instructionData[x].rm = -1;
     instructionData[x].rn = -1;
@@ -501,27 +502,44 @@ int main(int argc, char const *argv[])
     instructionData[x].shamt = -1;
   }
 
-  functionCaller(); 
-  
+  functionCaller();
+
   int c = 0;
-  
+
   for(int i = 0; i < counter; i++) {
     c = i;
-    while(c < i+4) {
+    while(c < i+4 && c < counter - 1) {
       c++;
       if(instructionData[i].rd != -1) {
         if(instructionData[i].rd == instructionData[c].rm || instructionData[i].rd == instructionData[c].rn) {
           dataHazardCounter++;
+          switch(c-i){
+            case 1:
+              extraCycles += 4;
+            break;
+
+            case 2:
+              extraCycles += 3;
+            break;
+
+            case 3:
+              extraCycles += 2;
+            break;
+
+            case 4:
+              extraCycles += 1;
+            break;
+          }
         }
       }
-      
+
     }
-    
+
     c = i;
-    if(instructionArray[i]>>instructionData[i].instructionShift == 180 || 
-       instructionArray[i]>>instructionData[i].instructionShift == 181 || 
+    if(instructionArray[i]>>instructionData[i].instructionShift == 180 ||
+       instructionArray[i]>>instructionData[i].instructionShift == 181 ||
        instructionArray[i]>>instructionData[i].instructionShift == 1712  ) {
-       
+
       while(c > i-5) {
         c++;
         if(instructionData[i].rd != -1) {
@@ -531,15 +549,15 @@ int main(int argc, char const *argv[])
         }
       }
     }
-    
+
   }
-  
+
   //Print Stats:
   printf("The number of cycles unpipelined is = %d\n", counter * 5);
   printf("The number of cycles in a perfect 5-stage pipeline is = %d\n", counter - 1 + 5);
   printf("The number of cycles in a 5-stage pipeline is = %d\n", dataHazardCounter + counter - 1 + 5);
   printf("The number of control hazards is = %d\n", controlHazardCounter);
-  
+
 
   return 0;
 };
