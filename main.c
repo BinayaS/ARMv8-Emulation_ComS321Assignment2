@@ -541,7 +541,7 @@ int main(int argc, char const *argv[])
        instructionArray[i]>>instructionData[i].instructionShift == 1712  ) {
 
       while(c > i-5) {
-        c++;
+        c--;
         if(instructionData[i].rd != -1) {
           if(instructionData[i].rd == instructionData[c].rd || instructionData[i].rd == instructionData[c].rd) {
             controlHazardCounter++;
