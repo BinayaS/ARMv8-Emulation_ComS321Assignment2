@@ -22,4 +22,12 @@ STUR X9, [x1, #0]
 
 End:
 
+BL a
+
+ADDI X9, X0, #9
+ADDI X10, X0, #10
+ADDI X11, X0, #11
+
+a:
+
 DUMP
