@@ -123,50 +123,36 @@ void decode(int a, int i) {
     instructionData[i].rn = a>>5 & 0x1F;
     instructionData[i].shamt = a>>10 & 0x3f;
     instructionData[i].rm = a>>16 & 0x1f;
-    printf(" -- R");
-    printf(" -> Rm = %d, Rn = %d, Rd = %d\n", instructionData[i].rm, instructionData[i].rn, instructionData[i].rd);
 	break;
 
 	case I:
     instructionData[i].rd = a & 0x1F;
     instructionData[i].rn = a>>5 & 0x1F;
     instructionData[i].imm = a>>10 & 0xFFF;
-	  printf(" -- I");
-	  printf(" -> Imm = %d, Rn = %d, Rd = %d\n", instructionData[i].imm, instructionData[i].rn, instructionData[i].rd);
-
 	break;
 
 	case D:
     instructionData[i].rd = a & 0x1F;
     instructionData[i].rn = a>>5 & 0x1F;
     instructionData[i].dtaddr = a>>12 & 0x7FF;
-	  printf(" -- D");
-    printf(" -> DTa = %d, Rn = %d, Rt = %d\n", instructionData[i].dtaddr, instructionData[i].rn, instructionData[i].rd);
 	break;
 
 	case B:
     instructionData[i].braddr = a & 0x3FFFFFF;
-	  printf(" -- B");
-    printf(" -> BRa = %d\n", instructionData[i].braddr);
 	break;
 
 	case CB:
     instructionData[i].rd = a & 0x1F;
     instructionData[i].condbraddr = a>>5 & 0x7FFFF;
-	  printf(" -- CB");
-    printf(" -> CondBrA = %d, Rt = %d\n", instructionData[i].condbraddr, instructionData[i].rd);
 	break;
 
 	case IW:
-	  printf(" -- IW\n");
 	break;
 
 	case JS:
-	  printf(" -- JS\n");
 	break;
 
 	case DEFAULT:
-	  printf(" -- DEFAULT OPFORMAT\n");
 	break;
       }
 
@@ -207,7 +193,6 @@ void decode(int a, int i) {
   }
 
   if(foundOpcode == 0) {
-    printf("Failed to find opcode -->  %x\n", a);
   }
 
 }
@@ -493,8 +478,6 @@ int main(int argc, char const *argv[])
     //unsigned int a = instructionArray[i];
     int a = instructionArray[i];
     decode(a, i);
-
-    printf("ID -rm: %d -rd:%d -rn:%d\n", instructionData[i].rm, instructionData[i].rd, instructionData[i].rn);
 
   }
 
