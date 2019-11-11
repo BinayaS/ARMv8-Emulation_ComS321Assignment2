@@ -141,7 +141,7 @@ void hexdump(FILE *f, uint64_t *start, size_t size) //displays contents of regis
                     "%08x "
                     //" %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
                     //" %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx %02hhx "
-                    "%x %x \n",
+                    "%016x %016x \n",
                     //" |%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c|\n",
                     (int32_t) i*8,
                     start[i], start[i+1]);
