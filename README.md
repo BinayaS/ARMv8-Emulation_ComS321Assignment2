@@ -1,2 +1,2 @@
 # ComS321Assingment2
-Please Help... :(
+This is a simplified "emulator" for interpreting and running ARMv8 binary code
